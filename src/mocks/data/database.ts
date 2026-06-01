@@ -5,6 +5,7 @@ import type {
   BackendUserProfileDto,
   ProjectActivityDto,
   ProjectDeliverableDto,
+  ProjectMessageDto,
   SkillDto,
   TransactionDto,
 } from "@/types/api";
@@ -21,6 +22,7 @@ export interface MockDatabase {
   applications: ApplicationDto[];
   activities: ProjectActivityDto[];
   deliverables: ProjectDeliverableDto[];
+  messages: ProjectMessageDto[];
   transactions: TransactionDto[];
 }
 
@@ -94,9 +96,13 @@ function createDatabase(): MockDatabase {
     { activityId: 311, projectId: 102, userId: 4, activityType: "application_received", activityDescription: "Nueva postulacion recibida.", createdAt: "2026-05-25T11:00:00Z" },
   ];
   const deliverables: ProjectDeliverableDto[] = [
-    { deliverableId: 401, projectId: 101, title: "Auditoria UX y performance", description: "Hallazgos priorizados y baseline.", deliverableStatus: "Aprobado", submittedAt: "2026-05-09T12:00:00Z", reviewedAt: "2026-05-10T15:00:00Z", reviewComments: "Excelente priorizacion.", dueDate: "2026-05-10", deliverablefiles: [] },
-    { deliverableId: 402, projectId: 101, title: "Wireframes mobile checkout", description: "Flujos para invitado y cliente recurrente.", deliverableStatus: "En revision", submittedAt: "2026-05-18T12:00:00Z", reviewedAt: null, reviewComments: null, dueDate: "2026-05-20", deliverablefiles: [] },
+    { deliverableId: 401, projectId: 101, title: "Auditoria UX y performance", description: "Hallazgos priorizados y baseline.", deliverableStatus: "Aprobado", submittedAt: "2026-05-09T12:00:00Z", reviewedAt: "2026-05-10T15:00:00Z", reviewComments: "Excelente priorizacion.", dueDate: "2026-05-10", deliverablefiles: [{ fileId: 901, deliverableId: 401, fileName: "auditoria-checkout.pdf", fileUrl: "/mock-files/auditoria-checkout.pdf", fileType: "application/pdf", fileSize: 1240000, uploadedAt: "2026-05-09T12:00:00Z" }] },
+    { deliverableId: 402, projectId: 101, title: "Wireframes mobile checkout", description: "Flujos para invitado y cliente recurrente.", deliverableStatus: "En revision", submittedAt: "2026-05-18T12:00:00Z", reviewedAt: null, reviewComments: null, dueDate: "2026-05-20", deliverablefiles: [{ fileId: 902, deliverableId: 402, fileName: "wireframes-mobile.fig", fileUrl: "/mock-files/wireframes-mobile.fig", fileType: "application/octet-stream", fileSize: 3820000, uploadedAt: "2026-05-18T12:00:00Z" }] },
     { deliverableId: 403, projectId: 101, title: "Implementacion y QA final", description: "Componentes, pruebas y metricas.", deliverableStatus: "Pendiente", submittedAt: null, reviewedAt: null, reviewComments: null, dueDate: "2026-06-18", deliverablefiles: [] },
+  ];
+  const messages: ProjectMessageDto[] = [
+    { messageId: 801, projectId: 101, senderId: 1, senderName: "Valentina Rojas", content: "Mateo, prioricemos checkout invitado esta semana.", createdAt: "2026-05-24T14:20:00Z", readAt: "2026-05-24T14:45:00Z", attachments: [] },
+    { messageId: 802, projectId: 101, senderId: 2, senderName: "Mateo Sanchez", content: "Perfecto. Dejo adjunto el plan de QA para validar estados de pago.", createdAt: "2026-05-24T15:05:00Z", readAt: null, attachments: [{ attachmentId: 851, messageId: 802, fileName: "qa-checkout-plan.pdf", fileUrl: "/mock-files/qa-checkout-plan.pdf", fileType: "application/pdf", fileSize: 540000, uploadedAt: "2026-05-24T15:05:00Z" }] },
   ];
   const transactions: TransactionDto[] = Array.from({ length: 8 }, (_, index) => ({
     transactionId: 501 + index, transactionType: index % 2 ? "EscrowRelease" : "Deposit", transactionStatus: index < 2 ? "Pendiente" : "Completada",
@@ -109,7 +115,7 @@ function createDatabase(): MockDatabase {
     workExperiences: [{ experienceId: 1, jobTitle: "Senior Product Engineer", company: "Northstar Commerce", startDate: "2022-01-01", endDate: null, isCurrent: true, description: "Liderazgo de frontend y design system." }, { experienceId: 2, jobTitle: "Frontend Developer", company: "Orbit Labs", startDate: "2019-02-01", endDate: "2021-12-15", isCurrent: false, description: "Aplicaciones B2B." }],
     portfolioItems: [{ portfolioId: 1, title: "Commerce analytics suite", description: "Dashboard de performance comercial.", projectUrl: "https://example.com", thumbnailUrl: null, completionDate: "2025-11-10", files: [] }, { portfolioId: 2, title: "Banking onboarding", description: "Flujo KYC accesible.", projectUrl: null, thumbnailUrl: null, completionDate: "2025-07-01", files: [] }],
   }];
-  return { users, freelancers, skills, projects, applications, activities, deliverables, transactions };
+  return { users, freelancers, skills, projects, applications, activities, deliverables, messages, transactions };
 }
 
 export let db = createDatabase();

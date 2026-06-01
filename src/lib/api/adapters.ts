@@ -9,6 +9,7 @@ import type {
   PaginatedTransactionsResponse,
   ProjectActivityDto,
   ProjectDeliverableDto,
+  ProjectMessageDto,
 } from "@/types/api";
 import type {
   Application,
@@ -18,6 +19,7 @@ import type {
   Project,
   ProjectActivity,
   ProjectDeliverable,
+  ProjectMessage,
   Transaction,
   User,
   UserProfile,
@@ -107,6 +109,9 @@ export function adaptApplication(dto: ApplicationDto): Application {
     estimatedDuration: dto.estimatedDuration,
     status: dto.applicationStatus,
     appliedAt: new Date(dto.appliedAt),
+    projectTitle: dto.projectTitle,
+    freelancerName: dto.freelancerName,
+    respondedAt: dto.respondedAt ? new Date(dto.respondedAt) : null,
   };
 }
 
@@ -136,6 +141,27 @@ export function adaptDeliverable(dto: ProjectDeliverableDto): ProjectDeliverable
     files: (dto.deliverablefiles ?? []).map((file) => ({
       id: file.fileId,
       deliverableId: file.deliverableId,
+      fileName: file.fileName,
+      fileUrl: file.fileUrl,
+      fileType: file.fileType,
+      fileSize: file.fileSize,
+      uploadedAt: new Date(file.uploadedAt),
+    })),
+  };
+}
+
+export function adaptProjectMessage(dto: ProjectMessageDto): ProjectMessage {
+  return {
+    id: dto.messageId,
+    projectId: dto.projectId,
+    senderId: dto.senderId,
+    senderName: dto.senderName,
+    content: dto.content,
+    createdAt: new Date(dto.createdAt),
+    readAt: dto.readAt ? new Date(dto.readAt) : null,
+    attachments: (dto.attachments ?? []).map((file) => ({
+      id: file.attachmentId,
+      messageId: file.messageId,
       fileName: file.fileName,
       fileUrl: file.fileUrl,
       fileType: file.fileType,

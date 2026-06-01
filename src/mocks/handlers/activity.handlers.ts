@@ -47,12 +47,23 @@ export const activityHandlers = [
     if (!project || !hasRole(user, "Freelancer") || project.assignedFreelancerId !== user.userId) return forbidden();
     const data = await request.formData();
     const title = String(data.get("title") ?? "");
+    const files = data.getAll("files").filter((entry): entry is File => entry instanceof File);
     if (!title) return HttpResponse.json({ message: "El titulo del entregable es requerido." }, { status: 400 });
+    const deliverableId = Math.max(...db.deliverables.map((item) => item.deliverableId)) + 1;
     const deliverable = {
-      deliverableId: Math.max(...db.deliverables.map((item) => item.deliverableId)) + 1,
+      deliverableId,
       projectId, title, description: String(data.get("description") ?? "") || null, deliverableStatus: "Enviado",
       submittedAt: new Date().toISOString(), reviewedAt: null, reviewComments: null,
-      dueDate: String(data.get("dueDate") ?? "") || null, deliverablefiles: [],
+      dueDate: String(data.get("dueDate") ?? "") || null,
+      deliverablefiles: files.map((file, index) => ({
+        fileId: Date.now() + index,
+        deliverableId,
+        fileName: file.name,
+        fileUrl: URL.createObjectURL(file),
+        fileType: file.type || null,
+        fileSize: file.size || null,
+        uploadedAt: new Date().toISOString(),
+      })),
     };
     db.deliverables.push(deliverable);
     db.activities.unshift({ activityId: Date.now(), projectId, userId: user.userId, activityType: "deliverable_sent", activityDescription: `Se envio ${title}.`, createdAt: new Date().toISOString() });
@@ -72,5 +83,57 @@ export const activityHandlers = [
     item.reviewComments = input.comments ?? null;
     db.activities.unshift({ activityId: Date.now(), projectId: project.projectId, userId: user.userId, activityType: "deliverable_reviewed", activityDescription: `${item.title} marcado como ${item.deliverableStatus}.`, createdAt: new Date().toISOString() });
     return HttpResponse.json(item);
+  }),
+  http.get("*/api/Projects/:id/messages", async ({ request, params }) => {
+    await mockDelay();
+    const id = Number(params.id);
+    if (!authenticatedUser(request)) return unauthorized();
+    if (!authorized(request, id)) return forbidden();
+    return HttpResponse.json(db.messages.filter((item) => item.projectId === id).sort((a, b) => a.createdAt.localeCompare(b.createdAt)));
+  }),
+  http.post("*/api/Projects/:id/messages", async ({ request, params }) => {
+    await mockDelay();
+    const user = authenticatedUser(request);
+    if (!user) return unauthorized();
+    const projectId = Number(params.id);
+    if (!authorized(request, projectId)) return forbidden();
+    const data = await request.formData();
+    const content = String(data.get("MessageText") ?? data.get("content") ?? "").trim();
+    const files = data.getAll("files").filter((entry): entry is File => entry instanceof File);
+    if (!content && files.length === 0) return HttpResponse.json({ message: "Escribe un mensaje o adjunta un archivo." }, { status: 400 });
+    const now = new Date().toISOString();
+    const messageId = Math.max(0, ...db.messages.map((item) => item.messageId)) + 1;
+    const profile = db.users.find((item) => item.userId === user.userId);
+    const message = {
+      messageId,
+      projectId,
+      senderId: user.userId,
+      senderName: profile ? `${profile.firstName} ${profile.lastName}` : user.email,
+      content: content || null,
+      createdAt: now,
+      readAt: null,
+      attachments: files.map((file, index) => ({
+        attachmentId: Date.now() + index,
+        messageId,
+        fileName: file.name,
+        fileUrl: URL.createObjectURL(file),
+        fileType: file.type || null,
+        fileSize: file.size || null,
+        uploadedAt: now,
+      })),
+    };
+    db.messages.push(message);
+    db.activities.unshift({ activityId: Date.now(), projectId, userId: user.userId, activityType: "message_sent", activityDescription: "Nuevo mensaje en el workspace.", createdAt: now });
+    return HttpResponse.json(message);
+  }),
+  http.put("*/api/Projects/messages/:id/read", async ({ request, params }) => {
+    await mockDelay();
+    const user = authenticatedUser(request);
+    if (!user) return unauthorized();
+    const message = db.messages.find((item) => item.messageId === Number(params.id));
+    if (!message) return HttpResponse.json({ message: "Mensaje no encontrado." }, { status: 404 });
+    if (!authorized(request, message.projectId)) return forbidden();
+    if (message.senderId !== user.userId) message.readAt = new Date().toISOString();
+    return HttpResponse.json({ success: true, message: "Mensaje marcado como leido." });
   }),
 ];

@@ -14,6 +14,7 @@ export const queryKeys = {
     activity: (projectId: number) => ["projects", projectId, "activity"] as const,
     deliverables: (projectId: number) => ["projects", projectId, "deliverables"] as const,
     deliverableSummary: (projectId: number) => ["projects", projectId, "deliverables", "summary"] as const,
+    messages: (projectId: number) => ["projects", projectId, "messages"] as const,
   },
   applications: {
     byProject: (projectId: number) => ["applications", "project", projectId] as const,
