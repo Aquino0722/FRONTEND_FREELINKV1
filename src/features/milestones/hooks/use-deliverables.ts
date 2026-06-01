@@ -16,7 +16,7 @@ export function useDeliverableSummary(projectId: number, enabled = true) {
 export function useUploadDeliverable(projectId: number) {
   const client = useQueryClient();
   return useMutation({
-    mutationFn: (input: { title: string; description?: string; dueDate?: string }) => deliverablesService.upload(projectId, input),
+    mutationFn: (input: { title: string; description?: string; dueDate?: string; files?: File[] }) => deliverablesService.upload(projectId, input),
     onSuccess: () => {
       client.invalidateQueries({ queryKey: queryKeys.projects.deliverables(projectId) });
       client.invalidateQueries({ queryKey: queryKeys.projects.deliverableSummary(projectId) });

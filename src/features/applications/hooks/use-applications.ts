@@ -19,6 +19,7 @@ export function useSubmitApplication(projectId: number) {
     mutationFn: (input: CreateApplicationInput) => applicationsService.submit(projectId, input),
     onSuccess: (_, input) => {
       client.invalidateQueries({ queryKey: queryKeys.applications.byFreelancer(input.freelancerId) });
+      client.invalidateQueries({ queryKey: queryKeys.applications.byProject(projectId) });
       client.invalidateQueries({ queryKey: queryKeys.projects.detail(projectId) });
     },
   });
@@ -31,6 +32,7 @@ export function useApplicationDecision(projectId: number) {
       accept ? applicationsService.accept(id) : applicationsService.reject(id),
     onSuccess: () => {
       client.invalidateQueries({ queryKey: queryKeys.applications.byProject(projectId) });
+      client.invalidateQueries({ queryKey: ["applications"] });
       client.invalidateQueries({ queryKey: queryKeys.projects.detail(projectId) });
       client.invalidateQueries({ queryKey: ["dashboard"] });
     },

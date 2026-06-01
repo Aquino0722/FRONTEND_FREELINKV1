@@ -11,6 +11,9 @@ const colorByStatus: Record<string, string> = {
   Rechazada: "border-rose-100 bg-rose-50 text-rose-700",
   Aprobado: "border-emerald-100 bg-emerald-50 text-emerald-700",
   "En revision": "border-blue-100 bg-blue-50 text-blue-700",
+  Cancelado: "border-slate-100 bg-slate-50 text-slate-700",
+  Enviado: "border-blue-100 bg-blue-50 text-blue-700",
+  Postulado: "border-indigo-100 bg-indigo-50 text-indigo-700",
 };
 
 export function StatusBadge({ status }: { status: string }) {

@@ -13,17 +13,16 @@ export const deliverablesService = {
     const { data } = await apiClient.get<DeliverableStatusSummaryDto>(endpoints.projects.summary(projectId));
     return adaptSummary(data);
   },
-  async upload(projectId: number, input: { title: string; description?: string; dueDate?: string }): Promise<ProjectDeliverable> {
+  async upload(projectId: number, input: { title: string; description?: string; dueDate?: string; files?: File[] }): Promise<ProjectDeliverable> {
     const form = new FormData();
-    form.append("title", input.title);
-    if (input.description) form.append("description", input.description);
-    if (input.dueDate) form.append("dueDate", input.dueDate);
-    const { data } = await apiClient.post<ProjectDeliverableDto>(endpoints.projects.deliverables(projectId), form, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
+    form.append("Title", input.title);
+    if (input.description) form.append("Description", input.description);
+    if (input.dueDate) form.append("DueDate", input.dueDate);
+    input.files?.forEach((file) => form.append("Files", file));
+    const { data } = await apiClient.post<ProjectDeliverableDto>(endpoints.projects.deliverables(projectId), form);
     return adaptDeliverable(data);
   },
   async review(deliverableId: number, decision: "approve" | "reject" | "review", comments?: string): Promise<void> {
-    await apiClient.put(`/Projects/deliverables/${deliverableId}/review`, { decision, comments });
+    await apiClient.put(endpoints.projects.deliverableReview(deliverableId), { decision, comments });
   },
 };
