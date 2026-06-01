@@ -25,7 +25,7 @@ function ClientDashboard({ userId }: { userId: number }) {
   return <>
     <PageHeader eyebrow="Cliente" title="Control de tus proyectos" description="Revisa candidatos, avances y entregas en un solo workspace." action={<Button asChild><Link href="/projects/new">Crear proyecto</Link></Button>} />
     <div className="grid gap-4 lg:grid-cols-4"><StatCard label="Proyectos" value={projects.data?.length ?? 0} helper="En tu cartera" icon={BriefcaseBusiness} /><StatCard label="Activos" value={projects.data?.filter((p) => p.status === "En Proceso").length ?? 0} helper="En ejecucion" icon={ClipboardCheck} /><StatCard label="En busqueda" value={pending} helper="Aceptando talento" icon={UsersRound} /><StatCard label="Entregables pendientes" value={summary.data?.pending ?? 0} helper="Del proyecto activo" icon={FileClock} /></div>
-    <Card className="mt-7 p-5"><h2 className="mb-5 font-medium">Proyectos recientes</h2><div className="space-y-4">{projects.data?.slice(0, 3).map((project) => <Link className="flex items-center justify-between rounded-xl border p-4 hover:bg-slate-50" href={`/projects/${project.id}`} key={project.id}><div><p className="text-sm font-medium">{project.title}</p><p className="mt-1 text-xs text-slate-500">Abrir workspace y entregables</p></div><StatusBadge status={project.status} /></Link>)}</div></Card>
+    <Card className="mt-7 p-5"><h2 className="mb-5 font-medium text-slate-200">Proyectos recientes</h2><div className="space-y-4">{projects.data?.slice(0, 3).map((project) => <Link className="flex items-center justify-between rounded-xl border border-line p-4 hover:bg-slate-800/40 hover:border-slate-700/50 transition-all" href={`/projects/${project.id}`} key={project.id}><div><p className="text-sm font-medium text-slate-200">{project.title}</p><p className="mt-1 text-xs text-slate-400">Abrir workspace y entregables</p></div><StatusBadge status={project.status} /></Link>)}</div></Card>
   </>;
 }
 
@@ -61,19 +61,19 @@ function FreelancerDashboard({ userId }: { userId: number }) {
         <StatCard label="Perfil" value="--" helper="Rating profesional" icon={UsersRound} />
       </div>
       <Card className="mt-7 p-5">
-        <h2 className="mb-5 font-medium">Postulaciones recientes</h2>
+        <h2 className="mb-5 font-medium text-slate-200">Postulaciones recientes</h2>
         {applications.data?.length === 0 ? (
           <p className="text-sm text-slate-500 py-2">No tienes postulaciones recientes.</p>
         ) : (
           <div className="space-y-3">
             {applications.data?.slice(0, 3).map((item) => (
               <Link 
-                className="flex justify-between items-center rounded-xl border p-4 hover:bg-slate-50 transition" 
+                className="flex justify-between items-center rounded-xl border border-line p-4 hover:bg-slate-800/40 hover:border-slate-700/50 transition-all" 
                 href={`/projects/${item.projectId}`} 
                 key={item.id}
               >
                 <div className="flex flex-col">
-                  <span className="text-sm font-medium text-slate-900">
+                  <span className="text-sm font-medium text-slate-200">
                     {item.projectTitle || `Proyecto #${item.projectId}`}
                   </span>
                   <span className="text-xs text-slate-400 mt-0.5">Ver detalles de la postulación</span>

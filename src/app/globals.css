@@ -1,13 +1,30 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f7f8fa;
-  --foreground: #101828;
-  --brand: #635bff;
-  --brand-soft: #eeedff;
-  --line: #e7eaf0;
-  --muted: #667085;
-  --panel: #ffffff;
+  --background: #090a10;
+  --foreground: #f1f5f9;
+  --brand: #6366f1;
+  --brand-soft: rgba(99, 102, 241, 0.12);
+  --line: #1e2235;
+  --muted: #94a3b8;
+  --panel: #11121d;
+  
+  /* shadcn UI compatible variables */
+  --card: #11121d;
+  --card-foreground: #f1f5f9;
+  --popover: #11121d;
+  --popover-foreground: #f1f5f9;
+  --primary: #6366f1;
+  --primary-foreground: #ffffff;
+  --secondary: #1e2235;
+  --secondary-foreground: #f1f5f9;
+  --accent: #1e2235;
+  --accent-foreground: #f1f5f9;
+  --destructive: #f43f5e;
+  --destructive-foreground: #ffffff;
+  --border: #1e2235;
+  --input: #1e2235;
+  --ring: #6366f1;
 }
 
 @theme inline {
@@ -20,12 +37,27 @@
   --color-line: var(--line);
   --color-muted: var(--muted);
   --color-panel: var(--panel);
+  
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
 }
 
 body {
   background: var(--background);
+  background-image: radial-gradient(circle at top, #141727 0%, #090a10 65%);
+  background-attachment: fixed;
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, sans-serif;
+  min-height: 100vh;
 }
 
 * {
@@ -41,11 +73,28 @@ select {
 }
 
 ::selection {
-  background: #dcd9ff;
+  background: rgba(99, 102, 241, 0.3);
+  color: #ffffff;
 }
 
 .surface {
   background: var(--panel);
   border: 1px solid var(--line);
-  box-shadow: 0 1px 2px rgb(16 24 40 / 0.03);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4);
+}
+
+/* Custom Premium Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #090a10;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e2235;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2b304a;
 }

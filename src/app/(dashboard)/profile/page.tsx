@@ -223,10 +223,10 @@ export default function ProfilePage() {
   if (profile.isLoading || (user.role === "Freelancer" && professional.isLoading)) {
     return (
       <div className="space-y-6">
-        <div className="h-20 w-1/3 animate-pulse rounded bg-slate-200" />
+        <div className="h-20 w-1/3 animate-pulse rounded bg-slate-800/60" />
         <div className="grid gap-6 md:grid-cols-3">
-          <div className="h-64 animate-pulse rounded-2xl bg-slate-200" />
-          <div className="col-span-2 h-96 animate-pulse rounded-2xl bg-slate-200" />
+          <div className="h-64 animate-pulse rounded-2xl bg-slate-800/60" />
+          <div className="col-span-2 h-96 animate-pulse rounded-2xl bg-slate-800/60" />
         </div>
       </div>
     );
@@ -511,14 +511,14 @@ export default function ProfilePage() {
             {/* LEFT COLUMN: Hero & Preferences */}
             <div className="space-y-6 lg:col-span-1">
               {/* Profile Completion Meter */}
-              <Card className="border-indigo-100 bg-gradient-to-br from-indigo-50/20 to-white p-6">
+              <Card className="border-indigo-500/20 bg-gradient-to-br from-indigo-500/10 to-panel p-6">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-semibold text-slate-900">Completitud del Perfil</h3>
-                  <span className="text-xs font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full">
+                  <h3 className="text-sm font-semibold text-slate-200">Completitud del Perfil</h3>
+                  <span className="text-xs font-bold text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 px-2 py-0.5 rounded-full">
                     {freelancerCompletion}%
                   </span>
                 </div>
-                <div className="mt-3 overflow-hidden rounded-full bg-slate-100 h-2.5">
+                <div className="mt-3 overflow-hidden rounded-full bg-slate-950/60 border border-line h-2.5">
                   <motion.div
                     className="h-full bg-gradient-to-r from-indigo-500 to-indigo-600"
                     initial={{ width: 0 }}
@@ -526,7 +526,7 @@ export default function ProfilePage() {
                     transition={{ duration: 0.8, ease: "easeOut" }}
                   />
                 </div>
-                <p className="mt-2.5 text-xs text-slate-500 leading-relaxed">
+                <p className="mt-2.5 text-xs text-slate-400 leading-relaxed">
                   {freelancerCompletion < 100
                     ? "Completa las secciones restantes para tener mayor visibilidad ante potenciales clientes."
                     : "¡Felicidades! Tu perfil está 100% completo y optimizado."}
@@ -538,7 +538,7 @@ export default function ProfilePage() {
                 <div className="absolute right-3 top-3">
                   <Dialog.Root open={isProfFormOpen} onOpenChange={setIsProfFormOpen}>
                     <Dialog.Trigger asChild>
-                      <button className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-50 hover:text-slate-900 transition">
+                      <button className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-800/40 hover:text-slate-200 transition">
                         <Settings className="h-4 w-4" />
                       </button>
                     </Dialog.Trigger>
@@ -550,7 +550,7 @@ export default function ProfilePage() {
                               initial={{ opacity: 0 }}
                               animate={{ opacity: 1 }}
                               exit={{ opacity: 0 }}
-                              className="fixed inset-0 z-40 bg-slate-950/30 backdrop-blur-sm"
+                              className="fixed inset-0 z-40 bg-slate-950/60 backdrop-blur-sm"
                             />
                           </Dialog.Overlay>
                           <Dialog.Content asChild>
@@ -558,32 +558,32 @@ export default function ProfilePage() {
                               initial={{ opacity: 0, scale: 0.95 }}
                               animate={{ opacity: 1, scale: 1 }}
                               exit={{ opacity: 0, scale: 0.95 }}
-                              className="fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-2xl border bg-white p-6 shadow-xl focus:outline-none"
+                              className="fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-line bg-panel p-6 shadow-2xl focus:outline-none"
                             >
                               <div className="flex justify-between gap-4">
-                                <Dialog.Title className="text-lg font-semibold text-slate-900">Editar Preferencias Profesionales</Dialog.Title>
-                                <Dialog.Close className="text-slate-400 hover:text-slate-600">
+                                <Dialog.Title className="text-lg font-semibold text-slate-200">Editar Preferencias Profesionales</Dialog.Title>
+                                <Dialog.Close className="text-slate-400 hover:text-slate-200">
                                   <X className="h-5 w-5" />
                                 </Dialog.Close>
                               </div>
                               <form onSubmit={submitProfessionalForm} className="mt-4 space-y-4">
                                 <div>
-                                  <label className="mb-1 block text-sm font-medium text-slate-700">Título profesional</label>
+                                  <label className="mb-1 block text-sm font-medium text-slate-300">Título profesional</label>
                                   <Input {...register("title")} />
                                   {errors.title && <p className="mt-1 text-xs text-rose-600">{errors.title.message}</p>}
                                 </div>
                                 <div className="grid grid-cols-2 gap-3">
                                   <div>
-                                    <label className="mb-1 block text-sm font-medium text-slate-700">Tarifa (USD/hora)</label>
+                                    <label className="mb-1 block text-sm font-medium text-slate-300">Tarifa (USD/hora)</label>
                                     <Input type="number" {...register("hourlyRate")} />
                                   </div>
                                   <div>
-                                    <label className="mb-1 block text-sm font-medium text-slate-700">Años de experiencia</label>
+                                    <label className="mb-1 block text-sm font-medium text-slate-300">Años de experiencia</label>
                                     <Input type="number" {...register("yearsOfExperience")} />
                                   </div>
                                 </div>
                                 <div>
-                                  <label className="mb-1 block text-sm font-medium text-slate-700">Disponibilidad semanal (horas)</label>
+                                  <label className="mb-1 block text-sm font-medium text-slate-300">Disponibilidad semanal (horas)</label>
                                   <Input
                                     type="number"
                                     placeholder="40"
@@ -592,19 +592,19 @@ export default function ProfilePage() {
                                   />
                                 </div>
                                 <div>
-                                  <label className="mb-1 block text-sm font-medium text-slate-700">Modalidad de trabajo</label>
+                                  <label className="mb-1 block text-sm font-medium text-slate-300">Modalidad de trabajo</label>
                                   <select
-                                    className="h-11 w-full rounded-xl border bg-white px-3 text-sm focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                                    className="h-11 w-full rounded-xl border border-line bg-slate-950/40 text-slate-200 px-3 text-sm focus:outline-none focus:ring-1 focus:ring-indigo-500"
                                     defaultValue={professional.data?.workMode || "Remoto"}
                                     onChange={(e) => handleUpdateFreelancerProfile({ workMode: e.target.value })}
                                   >
                                     {workModes.map((mode) => (
-                                      <option key={mode} value={mode}>{mode}</option>
+                                      <option key={mode} value={mode} className="bg-slate-900">{mode}</option>
                                     ))}
                                   </select>
                                 </div>
                                 <div>
-                                  <label className="mb-1 block text-sm font-medium text-slate-700">Estado de disponibilidad</label>
+                                  <label className="mb-1 block text-sm font-medium text-slate-300">Estado de disponibilidad</label>
                                   <div className="grid grid-cols-3 gap-2">
                                     {availabilityOptions.map((option) => (
                                       <button
@@ -613,8 +613,8 @@ export default function ProfilePage() {
                                         onClick={() => setValue("availabilityStatus", option)}
                                         className={`rounded-lg py-2 text-xs font-semibold transition border ${
                                           currentAvailability === option
-                                            ? "border-indigo-500 bg-indigo-50 text-indigo-700"
-                                            : "border-slate-200 bg-white hover:bg-slate-50 text-slate-600"
+                                            ? "border-indigo-500/30 bg-indigo-500/10 text-indigo-400"
+                                            : "border-line bg-slate-900/60 hover:bg-slate-800/40 text-slate-400"
                                         }`}
                                       >
                                         {option}
@@ -637,7 +637,7 @@ export default function ProfilePage() {
                   </Dialog.Root>
                 </div>
 
-                <div className="group relative mx-auto mb-4 h-24 w-24 overflow-hidden rounded-full border bg-slate-50 flex items-center justify-center">
+                <div className="group relative mx-auto mb-4 h-24 w-24 overflow-hidden rounded-full border border-line bg-slate-950/60 flex items-center justify-center">
                   {profile.data?.profilePictureUrl ? (
                     <img
                       src={profile.data.profilePictureUrl}
@@ -645,89 +645,89 @@ export default function ProfilePage() {
                       className="h-full w-full object-cover"
                     />
                   ) : (
-                    <span className="text-2xl font-bold text-indigo-600">
+                    <span className="text-2xl font-bold text-indigo-400">
                       {profile.data?.firstName?.charAt(0).toUpperCase()}
                     </span>
                   )}
-                  <label className="absolute inset-0 flex cursor-pointer items-center justify-center bg-slate-950/40 opacity-0 transition group-hover:opacity-100">
+                  <label className="absolute inset-0 flex cursor-pointer items-center justify-center bg-slate-950/60 opacity-0 transition group-hover:opacity-100">
                     <Upload className="h-5 w-5 text-white" />
                     <input type="file" accept="image/*" className="hidden" onChange={handleAvatarChange} />
                   </label>
                 </div>
 
-                <h2 className="text-lg font-bold text-slate-900">
+                <h2 className="text-lg font-bold text-slate-200">
                   {profile.data?.firstName} {profile.data?.lastName}
                 </h2>
-                <p className="text-sm font-medium text-slate-500 mt-0.5">
+                <p className="text-sm font-medium text-slate-400 mt-0.5">
                   {professional.data.title || "Añadir título profesional"}
                 </p>
 
-                <div className="mt-4 flex items-center justify-center gap-1.5 text-sm text-slate-600">
-                  <MapPin className="h-4 w-4 text-slate-400" />
+                <div className="mt-4 flex items-center justify-center gap-1.5 text-sm text-slate-400">
+                  <MapPin className="h-4 w-4 text-slate-500" />
                   <span>{profile.data?.city || "Sin ciudad"}, {profile.data?.country || "Sin país"}</span>
                 </div>
 
-                <div className="mt-5 grid grid-cols-2 gap-4 border-t pt-5 text-center text-sm">
+                <div className="mt-5 grid grid-cols-2 gap-4 border-t border-line pt-5 text-center text-sm">
                   <div>
-                    <span className="block text-xs text-slate-400 font-semibold uppercase">Rating Promedio</span>
-                    <div className="mt-1 flex items-center justify-center gap-1 font-bold text-slate-800">
+                    <span className="block text-xs text-slate-500 font-semibold uppercase">Rating Promedio</span>
+                    <div className="mt-1 flex items-center justify-center gap-1 font-bold text-slate-200">
                       <Star className="h-4 w-4 fill-amber-400 stroke-amber-400" />
                       {professional.data.averageRating || "N/A"}
-                      <span className="text-xs font-normal text-slate-400">({professional.data.totalReviews})</span>
+                      <span className="text-xs font-normal text-slate-500">({professional.data.totalReviews})</span>
                     </div>
                   </div>
                   <div>
-                    <span className="block text-xs text-slate-400 font-semibold uppercase">Proyectos OK</span>
-                    <span className="mt-1 block font-bold text-slate-800">
+                    <span className="block text-xs text-slate-500 font-semibold uppercase">Proyectos OK</span>
+                    <span className="mt-1 block font-bold text-slate-200">
                       {professional.data.workExperiences.length + (professional.data.portfolioItems?.length || 0)}
                     </span>
                   </div>
                 </div>
 
-                <div className="mt-4 text-xs text-slate-400 border-t pt-3">
+                <div className="mt-4 text-xs text-slate-500 border-t border-line pt-3">
                   Miembro desde el {profile.data ? formatDate(profile.data.createdAt) : ""}
                 </div>
               </Card>
 
               {/* Work Preferences Widget */}
               <Card className="p-6">
-                <h3 className="font-semibold text-slate-900 border-b pb-3 mb-4">Preferencias Laborales</h3>
+                <h3 className="font-semibold text-slate-200 border-b border-line pb-3 mb-4">Preferencias Laborales</h3>
                 <div className="space-y-4 text-sm">
                   <div className="flex items-center justify-between">
-                    <span className="flex items-center gap-2 text-slate-500"><DollarSign className="h-4.5 w-4.5 text-slate-400" />Tarifa por hora</span>
-                    <strong className="text-slate-800">{formatCurrency(professional.data.hourlyRate ?? 0)} / hr</strong>
+                    <span className="flex items-center gap-2 text-slate-400"><DollarSign className="h-4.5 w-4.5 text-slate-500" />Tarifa por hora</span>
+                    <strong className="text-slate-200">{formatCurrency(professional.data.hourlyRate ?? 0)} / hr</strong>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="flex items-center gap-2 text-slate-500"><Clock className="h-4.5 w-4.5 text-slate-400" />Horas semanales</span>
-                    <strong className="text-slate-800">{professional.data.weeklyAvailability || 40} horas</strong>
+                    <span className="flex items-center gap-2 text-slate-400"><Clock className="h-4.5 w-4.5 text-slate-500" />Horas semanales</span>
+                    <strong className="text-slate-200">{professional.data.weeklyAvailability || 40} horas</strong>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="flex items-center gap-2 text-slate-500"><Building2 className="h-4.5 w-4.5 text-slate-400" />Modalidad</span>
-                    <strong className="text-slate-800">{professional.data.workMode || "Remoto"}</strong>
+                    <span className="flex items-center gap-2 text-slate-400"><Building2 className="h-4.5 w-4.5 text-slate-500" />Modalidad</span>
+                    <strong className="text-slate-200">{professional.data.workMode || "Remoto"}</strong>
                   </div>
                 </div>
               </Card>
 
               {/* Resume / CV Section */}
               <Card className="p-6">
-                <h3 className="font-semibold text-slate-900 border-b pb-3 mb-4">Currículum / CV</h3>
+                <h3 className="font-semibold text-slate-200 border-b border-line pb-3 mb-4">Currículum / CV</h3>
                 {professional.data.resumeUrl ? (
-                  <div className="rounded-xl border border-indigo-100 bg-indigo-50/10 p-4">
+                  <div className="rounded-xl border border-indigo-500/20 bg-indigo-500/10 p-4">
                     <div className="flex items-start justify-between gap-3">
                       <div className="flex items-center gap-2.5">
-                        <div className="rounded-lg bg-indigo-50 p-2 text-indigo-600">
+                        <div className="rounded-lg bg-indigo-500/10 border border-indigo-500/20 p-2 text-indigo-400">
                           <FileText className="h-5 w-5" />
                         </div>
                         <div className="min-w-0 flex-1">
-                          <p className="truncate text-xs font-semibold text-slate-900">
+                          <p className="truncate text-xs font-semibold text-slate-200">
                             {professional.data.resumeName || "curriculum.pdf"}
                           </p>
-                          <span className="text-[10px] text-slate-400">PDF Documento</span>
+                          <span className="text-[10px] text-slate-500">PDF Documento</span>
                         </div>
                       </div>
                       <button
                         onClick={handleDeleteCv}
-                        className="rounded p-1 text-slate-400 hover:bg-slate-100 hover:text-rose-600 transition"
+                        className="rounded p-1 text-slate-400 hover:bg-slate-800/40 hover:text-rose-500 transition"
                       >
                         <Trash2 className="h-4 w-4" />
                       </button>
@@ -739,7 +739,7 @@ export default function ProfilePage() {
                         </a>
                       </Button>
                       <label className="flex-1">
-                        <span className="flex h-9 cursor-pointer items-center justify-center rounded-xl border border-slate-200 bg-white px-3 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition">
+                        <span className="flex h-9 cursor-pointer items-center justify-center rounded-xl border border-line bg-slate-900 px-3 text-xs font-semibold text-slate-350 hover:bg-slate-800/40 hover:text-slate-200 transition">
                           Reemplazar
                         </span>
                         <input type="file" accept=".pdf" className="hidden" onChange={handleCvChange} />
@@ -747,10 +747,10 @@ export default function ProfilePage() {
                     </div>
                   </div>
                 ) : (
-                  <label className="flex cursor-pointer flex-col items-center justify-center rounded-xl border border-dashed border-slate-300 bg-slate-50/50 p-6 text-center hover:bg-slate-50 transition duration-200">
-                    <Upload className="mb-2 h-8 w-8 text-slate-400" />
-                    <span className="text-xs font-semibold text-slate-700">Subir tu Currículum (CV)</span>
-                    <span className="mt-1 text-[10px] text-slate-400">Solo archivos PDF (máx 5MB)</span>
+                  <label className="flex cursor-pointer flex-col items-center justify-center rounded-xl border border-dashed border-line bg-slate-950/60 p-6 text-center hover:bg-slate-900/40 hover:border-slate-800 transition duration-200">
+                    <Upload className="mb-2 h-8 w-8 text-slate-500" />
+                    <span className="text-xs font-semibold text-slate-350">Subir tu Currículum (CV)</span>
+                    <span className="mt-1 text-[10px] text-slate-500">Solo archivos PDF (máx 5MB)</span>
                     <input type="file" accept=".pdf" className="hidden" onChange={handleCvChange} />
                   </label>
                 )}
@@ -761,11 +761,11 @@ export default function ProfilePage() {
             <div className="space-y-6 lg:col-span-2">
               {/* About Card */}
               <Card className="p-6">
-                <div className="flex items-center justify-between border-b pb-3 mb-4">
-                  <h3 className="font-semibold text-slate-900">Sobre mí</h3>
+                <div className="flex items-center justify-between border-b border-line pb-3 mb-4">
+                  <h3 className="font-semibold text-slate-200">Sobre mí</h3>
                   <Dialog.Root open={isBioOpen} onOpenChange={setIsBioOpen}>
                     <Dialog.Trigger asChild>
-                      <button className="flex items-center gap-1.5 text-xs font-semibold text-indigo-600 hover:text-indigo-800 transition">
+                      <button className="flex items-center gap-1.5 text-xs font-semibold text-indigo-400 hover:text-indigo-300 transition">
                         <Pencil className="h-3.5 w-3.5" /> Editar
                       </button>
                     </Dialog.Trigger>
@@ -777,7 +777,7 @@ export default function ProfilePage() {
                               initial={{ opacity: 0 }}
                               animate={{ opacity: 1 }}
                               exit={{ opacity: 0 }}
-                              className="fixed inset-0 z-40 bg-slate-950/30 backdrop-blur-sm"
+                              className="fixed inset-0 z-40 bg-slate-950/60 backdrop-blur-sm"
                             />
                           </Dialog.Overlay>
                           <Dialog.Content asChild>
@@ -785,17 +785,17 @@ export default function ProfilePage() {
                               initial={{ opacity: 0, scale: 0.95 }}
                               animate={{ opacity: 1, scale: 1 }}
                               exit={{ opacity: 0, scale: 0.95 }}
-                              className="fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 -translate-y-1/2 rounded-2xl border bg-white p-6 shadow-xl focus:outline-none"
+                              className="fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-line bg-panel p-6 shadow-2xl focus:outline-none"
                             >
                               <div className="flex justify-between gap-4">
-                                <Dialog.Title className="text-lg font-semibold text-slate-900">Editar Biografía</Dialog.Title>
-                                <Dialog.Close className="text-slate-400 hover:text-slate-600">
+                                <Dialog.Title className="text-lg font-semibold text-slate-200">Editar Biografía</Dialog.Title>
+                                <Dialog.Close className="text-slate-400 hover:text-slate-200">
                                   <X className="h-5 w-5" />
                                 </Dialog.Close>
                               </div>
                               <div className="mt-4 space-y-4">
                                 <div>
-                                  <label className="mb-1 block text-sm font-medium text-slate-700">
+                                  <label className="mb-1 block text-sm font-medium text-slate-300">
                                     Sobre mí (Biografía)
                                   </label>
                                   <Textarea
@@ -810,7 +810,7 @@ export default function ProfilePage() {
                                       if (label) label.textContent = `${e.target.value.length}/1000`;
                                     }}
                                   />
-                                  <div className="mt-1 flex justify-between text-xs text-slate-400">
+                                  <div className="mt-1 flex justify-between text-xs text-slate-500">
                                     <span>Máximo 1000 caracteres</span>
                                     <span id="bio-counter">{(profile.data?.bio || "").length}/1000</span>
                                   </div>
@@ -837,14 +837,14 @@ export default function ProfilePage() {
                     </AnimatePresence>
                   </Dialog.Root>
                 </div>
-                <p className="text-sm leading-6 text-slate-600 whitespace-pre-line">
+                <p className="text-sm leading-6 text-slate-400 whitespace-pre-line">
                   {profile.data?.bio || "Aún no has agregado una biografía. Cuéntale a tus clientes acerca de tu experiencia laboral y áreas de dominio."}
                 </p>
               </Card>
 
               {/* Skills Card */}
               <Card className="p-6">
-                <h3 className="font-semibold text-slate-900 border-b pb-3 mb-4">Habilidades & Dominio</h3>
+                <h3 className="font-semibold text-slate-200 border-b border-line pb-3 mb-4">Habilidades & Dominio</h3>
                 
                 {professional.data.skills.length === 0 ? (
                   <p className="text-sm text-slate-500">Agrega habilidades para completar tu perfil.</p>
@@ -853,13 +853,13 @@ export default function ProfilePage() {
                     {professional.data.skills.map((skill) => (
                       <span
                         key={skill.id}
-                        className="inline-flex items-center gap-1.5 rounded-full border border-indigo-100 bg-indigo-50/20 px-3.5 py-1.5 text-xs font-semibold text-indigo-700"
+                        className="inline-flex items-center gap-1.5 rounded-full border border-indigo-500/20 bg-indigo-500/10 px-3.5 py-1.5 text-xs font-semibold text-indigo-400"
                       >
                         {skill.name}
-                        <span className="text-[10px] font-normal text-slate-400">({skill.proficiencyLevel || "Avanzado"})</span>
+                        <span className="text-[10px] font-normal text-slate-500">({skill.proficiencyLevel || "Avanzado"})</span>
                         <button
                           onClick={() => handleDeleteSkill(skill.id)}
-                          className="text-indigo-400 hover:text-rose-600 transition"
+                          className="text-indigo-400 hover:text-rose-500 transition"
                         >
                           <X className="h-3.5 w-3.5" />
                         </button>
@@ -868,7 +868,7 @@ export default function ProfilePage() {
                   </div>
                 )}
 
-                <div className="grid gap-3 lg:grid-cols-[1fr_180px_auto] border-t pt-5">
+                <div className="grid gap-3 lg:grid-cols-[1fr_180px_auto] border-t border-line pt-5">
                   <div className="relative">
                     <Input
                       value={skillSearch}
@@ -879,11 +879,11 @@ export default function ProfilePage() {
                       placeholder="Buscar habilidad (Next.js, Figma, React...)"
                     />
                     {skillSearch && filteredSkills.length > 0 && (
-                      <div className="absolute z-20 mt-2 w-full overflow-hidden rounded-xl border bg-white shadow-lg">
+                      <div className="absolute z-20 mt-2 w-full overflow-hidden border border-line bg-panel shadow-2xl">
                         {filteredSkills.map((skill) => (
                           <button
-                            className={`flex w-full items-center justify-between px-3.5 py-2.5 text-left text-sm hover:bg-slate-50 transition ${
-                              selectedSkillId === skill.id ? "bg-indigo-50 text-indigo-700" : "text-slate-700"
+                            className={`flex w-full items-center justify-between px-3.5 py-2.5 text-left text-sm hover:bg-slate-800/40 transition ${
+                              selectedSkillId === skill.id ? "bg-indigo-500/20 text-indigo-400" : "text-slate-350 text-slate-300"
                             }`}
                             key={skill.id}
                             type="button"
@@ -893,19 +893,19 @@ export default function ProfilePage() {
                             }}
                           >
                             <span>{skill.name}</span>
-                            <span className="text-xs text-slate-400">{skill.category}</span>
+                            <span className="text-xs text-slate-500">{skill.category}</span>
                           </button>
                         ))}
                       </div>
                     )}
                   </div>
                   <select
-                    className="h-11 rounded-xl border bg-white px-3 text-sm focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                    className="h-11 rounded-xl border border-line bg-slate-950/40 px-3 text-sm text-slate-200 focus:outline-none focus:ring-1 focus:ring-brand"
                     value={skillLevel}
                     onChange={(event) => setSkillLevel(event.target.value as ProficiencyLevel)}
                   >
                     {levels.map((level) => (
-                      <option key={level} value={level}>{level}</option>
+                      <option key={level} value={level} className="bg-slate-900">{level}</option>
                     ))}
                   </select>
                   <Button
@@ -919,8 +919,8 @@ export default function ProfilePage() {
 
               {/* Experiences Section */}
               <Card className="p-6">
-                <div className="flex items-center justify-between border-b pb-3 mb-5">
-                  <h3 className="font-semibold text-slate-900">Experiencia Laboral</h3>
+                <div className="flex items-center justify-between border-b border-line pb-3 mb-5">
+                  <h3 className="font-semibold text-slate-200">Experiencia Laboral</h3>
                   <Button onClick={openAddWork} size="sm" variant="secondary">
                     <PlusCircle className="mr-1.5 h-4 w-4" /> Agregar
                   </Button>
@@ -932,17 +932,17 @@ export default function ProfilePage() {
                     detail="Añade experiencias pasadas para respaldar tus habilidades."
                   />
                 ) : (
-                  <div className="space-y-6 relative border-l-2 border-slate-100 pl-5 ml-2.5">
+                  <div className="space-y-6 relative border-l-2 border-line pl-5 ml-2.5">
                     {professional.data.workExperiences.map((work) => (
                       <div className="relative group" key={work.id}>
                         {/* Timeline point */}
-                        <div className="absolute -left-[27px] top-1.5 h-3.5 w-3.5 rounded-full border-2 border-white bg-indigo-600" />
+                        <div className="absolute -left-[27px] top-1.5 h-3.5 w-3.5 rounded-full border-2 border-panel bg-indigo-500" />
                         
                         <div className="flex items-start justify-between gap-3">
                           <div>
-                            <h4 className="text-sm font-bold text-slate-900">{work.jobTitle}</h4>
-                            <p className="mt-0.5 text-xs text-slate-500">
-                              <span className="font-semibold text-slate-700">{work.company || "Freelance"}</span>
+                            <h4 className="text-sm font-bold text-slate-200">{work.jobTitle}</h4>
+                            <p className="mt-0.5 text-xs text-slate-400">
+                              <span className="font-semibold text-slate-300">{work.company || "Freelance"}</span>
                               <span className="mx-2">•</span>
                               {formatDate(work.startDate)} - {work.isCurrent ? "Actual" : work.endDate ? formatDate(work.endDate) : "Sin fecha"}
                             </p>
@@ -950,20 +950,20 @@ export default function ProfilePage() {
                           <div className="flex gap-1.5 opacity-0 group-hover:opacity-100 transition duration-200">
                             <button
                               onClick={() => openEditWork(work)}
-                              className="rounded p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-800 transition"
+                              className="rounded p-1 text-slate-400 hover:bg-slate-800/40 hover:text-slate-200 transition"
                             >
                               <Pencil className="h-3.5 w-3.5" />
                             </button>
                             <button
                               onClick={() => handleDeleteWork(work.id)}
-                              className="rounded p-1 text-slate-400 hover:bg-slate-100 hover:text-rose-600 transition"
+                              className="rounded p-1 text-slate-400 hover:bg-slate-800/40 hover:text-rose-400 transition"
                             >
                               <Trash2 className="h-3.5 w-3.5" />
                             </button>
                           </div>
                         </div>
                         {work.description && (
-                          <p className="mt-2.5 text-xs leading-relaxed text-slate-600 bg-slate-50/50 p-3 rounded-xl border border-slate-100">
+                          <p className="mt-2.5 text-xs leading-relaxed text-slate-350 bg-slate-950/40 p-3 rounded-xl border border-line">
                             {work.description}
                           </p>
                         )}
@@ -975,8 +975,8 @@ export default function ProfilePage() {
 
               {/* Certifications Section */}
               <Card className="p-6">
-                <div className="flex items-center justify-between border-b pb-3 mb-5">
-                  <h3 className="font-semibold text-slate-900">Certificaciones</h3>
+                <div className="flex items-center justify-between border-b border-line pb-3 mb-5">
+                  <h3 className="font-semibold text-slate-200">Certificaciones</h3>
                   <Button onClick={() => setIsCertOpen(true)} size="sm" variant="secondary">
                     <PlusCircle className="mr-1.5 h-4 w-4" /> Agregar
                   </Button>
@@ -992,36 +992,36 @@ export default function ProfilePage() {
                     {professional.data.certifications.map((cert) => (
                       <div
                         key={cert.id}
-                        className="group flex flex-col justify-between rounded-xl border p-4 hover:border-indigo-100 hover:bg-indigo-50/5 transition duration-200"
+                        className="group flex flex-col justify-between rounded-xl border border-line bg-panel/30 p-4 hover:border-indigo-500/20 hover:bg-indigo-500/5 transition duration-200"
                       >
                         <div>
                           <div className="flex justify-between items-start gap-2">
-                            <h4 className="text-sm font-semibold text-slate-800 leading-snug line-clamp-2">
+                            <h4 className="text-sm font-semibold text-slate-200 leading-snug line-clamp-2">
                               {cert.name}
                             </h4>
                             <button
                               onClick={() => handleDeleteCert(cert.id)}
-                              className="rounded p-1 text-slate-400 opacity-0 group-hover:opacity-100 hover:bg-slate-100 hover:text-rose-600 transition ml-auto"
+                              className="rounded p-1 text-slate-400 opacity-0 group-hover:opacity-100 hover:bg-slate-800/40 hover:text-rose-400 transition ml-auto"
                             >
                               <Trash2 className="h-3.5 w-3.5" />
                             </button>
                           </div>
-                          <p className="text-xs text-slate-500 mt-1">{cert.institution}</p>
-                          <p className="text-[10px] text-slate-400 mt-0.5">
+                          <p className="text-xs text-slate-400 mt-1">{cert.institution}</p>
+                          <p className="text-[10px] text-slate-505 mt-0.5">
                             Emitido: {formatDate(cert.issueDate)}
                           </p>
                         </div>
                         {cert.pdfUrl && (
-                          <div className="mt-3.5 border-t pt-3 flex items-center justify-between">
+                          <div className="mt-3.5 border-t border-line pt-3 flex items-center justify-between">
                             <a
                               href={cert.pdfUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="inline-flex items-center gap-1 text-[11px] font-semibold text-indigo-600 hover:underline"
+                              className="inline-flex items-center gap-1 text-[11px] font-semibold text-brand hover:text-indigo-400 transition"
                             >
                               <FileText className="h-3.5 w-3.5" /> Ver PDF
                             </a>
-                            <span className="truncate max-w-[120px] text-[9px] text-slate-400" title={cert.pdfName || ""}>
+                            <span className="truncate max-w-[120px] text-[9px] text-slate-505" title={cert.pdfName || ""}>
                               {cert.pdfName}
                             </span>
                           </div>
@@ -1034,8 +1034,8 @@ export default function ProfilePage() {
 
               {/* Portfolio Section */}
               <Card className="p-6">
-                <div className="flex items-center justify-between border-b pb-3 mb-5">
-                  <h3 className="font-semibold text-slate-900">Portafolio</h3>
+                <div className="flex items-center justify-between border-b border-line pb-3 mb-5">
+                  <h3 className="font-semibold text-slate-200">Portafolio</h3>
                   <Button onClick={openAddPortfolio} size="sm" variant="secondary">
                     <PlusCircle className="mr-1.5 h-4 w-4" /> Agregar
                   </Button>
@@ -1051,45 +1051,45 @@ export default function ProfilePage() {
                     {professional.data.portfolioItems.map((project) => (
                       <div
                         key={project.id}
-                        className="group relative flex flex-col justify-between overflow-hidden rounded-xl border transition hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-sm"
+                        className="group relative flex flex-col justify-between overflow-hidden rounded-xl border border-line bg-panel/30 transition hover:-translate-y-0.5 hover:border-slate-700"
                       >
                         <div>
                           {project.thumbnailUrl ? (
                             <img
                               src={project.thumbnailUrl}
                               alt={project.title}
-                              className="h-40 w-full object-cover border-b"
+                              className="h-40 w-full object-cover border-b border-line"
                             />
                           ) : (
-                            <div className="h-40 w-full bg-slate-100 flex items-center justify-center text-slate-400 border-b">
+                            <div className="h-40 w-full bg-slate-950/40 flex items-center justify-center text-slate-650 border-b border-line">
                               <Inbox className="h-10 w-10" />
                             </div>
                           )}
                           <div className="p-4">
                             <div className="flex items-start justify-between gap-2">
-                              <h4 className="text-sm font-bold text-slate-900 line-clamp-1">{project.title}</h4>
+                              <h4 className="text-sm font-bold text-slate-200 line-clamp-1">{project.title}</h4>
                               <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition duration-200 ml-auto">
                                 <button
                                   onClick={() => openEditPortfolio(project)}
-                                  className="rounded p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-800 transition"
+                                  className="rounded p-1 text-slate-400 hover:bg-slate-800/40 hover:text-slate-200 transition"
                                 >
                                   <Pencil className="h-3.5 w-3.5" />
                                 </button>
                                 <button
                                   onClick={() => handleDeletePortfolio(project.id)}
-                                  className="rounded p-1 text-slate-400 hover:bg-slate-100 hover:text-rose-600 transition"
+                                  className="rounded p-1 text-slate-400 hover:bg-slate-800/40 hover:text-rose-400 transition"
                                 >
                                   <Trash2 className="h-3.5 w-3.5" />
                                 </button>
                               </div>
                             </div>
-                            <p className="mt-1.5 text-xs text-slate-500 line-clamp-2 leading-relaxed">
+                            <p className="mt-1.5 text-xs text-slate-400 line-clamp-2 leading-relaxed">
                               {project.description}
                             </p>
                             {project.technologies && project.technologies.length > 0 && (
                               <div className="mt-3.5 flex flex-wrap gap-1">
                                 {project.technologies.map((t) => (
-                                  <span key={t} className="rounded bg-slate-100 px-2 py-0.5 text-[10px] text-slate-600 font-semibold">
+                                  <span key={t} className="rounded bg-slate-800/50 border border-line px-2 py-0.5 text-[10px] text-slate-300 font-semibold">
                                     {t}
                                   </span>
                                 ))}
@@ -1098,12 +1098,12 @@ export default function ProfilePage() {
                           </div>
                         </div>
                         {project.projectUrl && (
-                          <div className="border-t bg-slate-50/50 px-4 py-2.5 flex items-center justify-end">
+                          <div className="border-t border-line bg-slate-950/20 px-4 py-2.5 flex items-center justify-end">
                             <a
                               href={project.projectUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="inline-flex items-center gap-1 text-[11px] font-semibold text-indigo-600 hover:underline"
+                              className="inline-flex items-center gap-1 text-[11px] font-semibold text-brand hover:text-indigo-400 transition"
                             >
                               Ver proyecto <ExternalLink className="h-3 w-3" />
                             </a>
@@ -1127,7 +1127,7 @@ export default function ProfilePage() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-40 bg-slate-950/30 backdrop-blur-sm"
+                        className="fixed inset-0 z-40 bg-slate-950/60 backdrop-blur-sm"
                       />
                     </Dialog.Overlay>
                     <Dialog.Content asChild>
@@ -1135,19 +1135,19 @@ export default function ProfilePage() {
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.95 }}
-                        className="fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-2xl border bg-white p-6 shadow-xl focus:outline-none"
+                        className="fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-line bg-panel p-6 shadow-2xl focus:outline-none"
                       >
                         <div className="flex justify-between gap-4">
-                          <Dialog.Title className="text-lg font-semibold text-slate-900">
+                          <Dialog.Title className="text-lg font-semibold text-slate-200">
                             {editingExperience ? "Editar Experiencia" : "Agregar Experiencia"}
                           </Dialog.Title>
-                          <Dialog.Close className="text-slate-400 hover:text-slate-600">
+                          <Dialog.Close className="text-slate-400 hover:text-slate-200">
                             <X className="h-5 w-5" />
                           </Dialog.Close>
                         </div>
                         <div className="mt-4 space-y-4">
                           <div>
-                            <label className="mb-1 block text-sm font-medium text-slate-700">Cargo *</label>
+                            <label className="mb-1 block text-sm font-medium text-slate-300">Cargo *</label>
                             <Input
                               placeholder="Ej. Senior Frontend Developer"
                               value={workDraft.jobTitle}
@@ -1155,7 +1155,7 @@ export default function ProfilePage() {
                             />
                           </div>
                           <div>
-                            <label className="mb-1 block text-sm font-medium text-slate-700">Empresa *</label>
+                            <label className="mb-1 block text-sm font-medium text-slate-300">Empresa *</label>
                             <Input
                               placeholder="Ej. Acme Inc."
                               value={workDraft.company}
@@ -1164,7 +1164,7 @@ export default function ProfilePage() {
                           </div>
                           <div className="grid grid-cols-2 gap-3">
                             <div>
-                              <label className="mb-1 block text-sm font-medium text-slate-700">Fecha de inicio *</label>
+                              <label className="mb-1 block text-sm font-medium text-slate-300">Fecha de inicio *</label>
                               <Input
                                 type="date"
                                 value={workDraft.startDate}
@@ -1172,7 +1172,7 @@ export default function ProfilePage() {
                               />
                             </div>
                             <div>
-                              <label className="mb-1 block text-sm font-medium text-slate-700">Fecha de fin</label>
+                              <label className="mb-1 block text-sm font-medium text-slate-300">Fecha de fin</label>
                               <Input
                                 type="date"
                                 disabled={workDraft.isCurrent}
@@ -1181,17 +1181,17 @@ export default function ProfilePage() {
                               />
                             </div>
                           </div>
-                          <label className="flex items-center gap-2 text-sm text-slate-600">
+                          <label className="flex items-center gap-2 text-sm text-slate-400">
                             <input
                               type="checkbox"
-                              className="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+                              className="rounded border-line bg-slate-950/40 text-indigo-650 focus:ring-indigo-500/30 focus:ring-offset-slate-950"
                               checked={workDraft.isCurrent}
                               onChange={(e) => setWorkDraft({ ...workDraft, isCurrent: e.target.checked, endDate: e.target.checked ? "" : workDraft.endDate })}
                             />
                             Trabajo actual
                           </label>
                           <div>
-                            <label className="mb-1 block text-sm font-medium text-slate-700">Descripción</label>
+                            <label className="mb-1 block text-sm font-medium text-slate-300">Descripción</label>
                             <Textarea
                               placeholder="Responsabilidades, logros y tecnologías utilizadas..."
                               rows={3}
@@ -1223,7 +1223,7 @@ export default function ProfilePage() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-40 bg-slate-950/30 backdrop-blur-sm"
+                        className="fixed inset-0 z-40 bg-slate-950/60 backdrop-blur-sm"
                       />
                     </Dialog.Overlay>
                     <Dialog.Content asChild>
@@ -1231,17 +1231,17 @@ export default function ProfilePage() {
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.95 }}
-                        className="fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-2xl border bg-white p-6 shadow-xl focus:outline-none"
+                        className="fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-line bg-panel p-6 shadow-2xl focus:outline-none"
                       >
                         <div className="flex justify-between gap-4">
-                          <Dialog.Title className="text-lg font-semibold text-slate-900">Agregar Certificación</Dialog.Title>
-                          <Dialog.Close className="text-slate-400 hover:text-slate-600">
+                          <Dialog.Title className="text-lg font-semibold text-slate-200">Agregar Certificación</Dialog.Title>
+                          <Dialog.Close className="text-slate-400 hover:text-slate-200">
                             <X className="h-5 w-5" />
                           </Dialog.Close>
                         </div>
                         <div className="mt-4 space-y-4">
                           <div>
-                            <label className="mb-1 block text-sm font-medium text-slate-700">Nombre de la Certificación *</label>
+                            <label className="mb-1 block text-sm font-medium text-slate-355">Nombre de la Certificación *</label>
                             <Input
                               placeholder="Ej. AWS Certified Solutions Architect"
                               value={certDraft.name}
@@ -1249,7 +1249,7 @@ export default function ProfilePage() {
                             />
                           </div>
                           <div>
-                            <label className="mb-1 block text-sm font-medium text-slate-700">Institución emisora *</label>
+                            <label className="mb-1 block text-sm font-medium text-slate-355">Institución emisora *</label>
                             <Input
                               placeholder="Ej. Amazon Web Services"
                               value={certDraft.institution}
@@ -1257,7 +1257,7 @@ export default function ProfilePage() {
                             />
                           </div>
                           <div>
-                            <label className="mb-1 block text-sm font-medium text-slate-700">Fecha de emisión *</label>
+                            <label className="mb-1 block text-sm font-medium text-slate-355">Fecha de emisión *</label>
                             <Input
                               type="date"
                               value={certDraft.issueDate}
@@ -1265,11 +1265,11 @@ export default function ProfilePage() {
                             />
                           </div>
                           <div>
-                            <label className="mb-1 block text-sm font-medium text-slate-700">Adjuntar PDF (Opcional)</label>
-                            <label className="flex cursor-pointer items-center justify-center rounded-xl border border-dashed border-slate-300 bg-slate-50 p-4 hover:bg-slate-100 transition">
+                            <label className="mb-1 block text-sm font-medium text-slate-355">Adjuntar PDF (Opcional)</label>
+                            <label className="flex cursor-pointer items-center justify-center rounded-xl border border-dashed border-line bg-slate-950/40 p-4 hover:bg-slate-900/40 transition">
                               <div className="text-center">
-                                <Upload className="mx-auto h-6 w-6 text-slate-400" />
-                                <span className="mt-1 block text-xs font-semibold text-slate-700">
+                                <Upload className="mx-auto h-6 w-6 text-slate-455" />
+                                <span className="mt-1 block text-xs font-semibold text-slate-300">
                                   {certDraft.pdfFile ? certDraft.pdfFile.name : "Subir PDF de la certificación"}
                                 </span>
                               </div>
@@ -1305,7 +1305,7 @@ export default function ProfilePage() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-40 bg-slate-950/30 backdrop-blur-sm"
+                        className="fixed inset-0 z-40 bg-slate-950/60 backdrop-blur-sm"
                       />
                     </Dialog.Overlay>
                     <Dialog.Content asChild>
@@ -1313,19 +1313,19 @@ export default function ProfilePage() {
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.95 }}
-                        className="fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-2xl border bg-white p-6 shadow-xl focus:outline-none"
+                        className="fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-line bg-panel p-6 shadow-2xl focus:outline-none"
                       >
                         <div className="flex justify-between gap-4">
-                          <Dialog.Title className="text-lg font-semibold text-slate-900">
+                          <Dialog.Title className="text-lg font-semibold text-slate-200">
                             {editingPortfolio ? "Editar Proyecto" : "Agregar Proyecto al Portafolio"}
                           </Dialog.Title>
-                          <Dialog.Close className="text-slate-400 hover:text-slate-600">
+                          <Dialog.Close className="text-slate-400 hover:text-slate-200">
                             <X className="h-5 w-5" />
                           </Dialog.Close>
                         </div>
                         <div className="mt-4 space-y-4">
                           <div>
-                            <label className="mb-1 block text-sm font-medium text-slate-700">Nombre del Proyecto *</label>
+                            <label className="mb-1 block text-sm font-medium text-slate-355">Nombre del Proyecto *</label>
                             <Input
                               placeholder="Ej. Ecommerce redesign"
                               value={portfolioDraft.title}
@@ -1333,7 +1333,7 @@ export default function ProfilePage() {
                             />
                           </div>
                           <div>
-                            <label className="mb-1 block text-sm font-medium text-slate-700">Descripción</label>
+                            <label className="mb-1 block text-sm font-medium text-slate-355">Descripción</label>
                             <Textarea
                               placeholder="Describe el propósito y las principales funcionalidades del proyecto..."
                               rows={3}
@@ -1342,7 +1342,7 @@ export default function ProfilePage() {
                             />
                           </div>
                           <div>
-                            <label className="mb-1 block text-sm font-medium text-slate-700">URL del Proyecto</label>
+                            <label className="mb-1 block text-sm font-medium text-slate-355">URL del Proyecto</label>
                             <Input
                               placeholder="Ej. https://mi-proyecto.com"
                               value={portfolioDraft.projectUrl}
@@ -1350,7 +1350,7 @@ export default function ProfilePage() {
                             />
                           </div>
                           <div>
-                            <label className="mb-1 block text-sm font-medium text-slate-700">Tecnologías (separadas por comas)</label>
+                            <label className="mb-1 block text-sm font-medium text-slate-355">Tecnologías (separadas por comas)</label>
                             <Input
                               placeholder="Ej. Next.js, React, Tailwind, Redux"
                               value={portfolioDraft.technologies}
@@ -1358,11 +1358,11 @@ export default function ProfilePage() {
                             />
                           </div>
                           <div>
-                            <label className="mb-1 block text-sm font-medium text-slate-700">Imagen de Portada (Opcional)</label>
-                            <label className="flex cursor-pointer items-center justify-center rounded-xl border border-dashed border-slate-300 bg-slate-50 p-4 hover:bg-slate-100 transition">
+                            <label className="mb-1 block text-sm font-medium text-slate-355">Imagen de Portada (Opcional)</label>
+                            <label className="flex cursor-pointer items-center justify-center rounded-xl border border-dashed border-line bg-slate-950/40 p-4 hover:bg-slate-900/40 transition">
                               <div className="text-center">
-                                <Upload className="mx-auto h-6 w-6 text-slate-400" />
-                                <span className="mt-1 block text-xs font-semibold text-slate-700">
+                                <Upload className="mx-auto h-6 w-6 text-slate-455" />
+                                <span className="mt-1 block text-xs font-semibold text-slate-300">
                                   {portfolioDraft.imageFile ? portfolioDraft.imageFile.name : "Subir captura de pantalla"}
                                 </span>
                               </div>
@@ -1401,14 +1401,14 @@ export default function ProfilePage() {
             {/* LEFT COLUMN: Hero Company, Socials, Completion Meter */}
             <div className="space-y-6 lg:col-span-1">
               {/* Profile Completion Meter */}
-              <Card className="border-indigo-100 bg-gradient-to-br from-indigo-50/20 to-white p-6">
+              <Card className="border-indigo-500/20 bg-gradient-to-br from-indigo-500/10 to-panel p-6">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-semibold text-slate-900">Completitud Corporativa</h3>
-                  <span className="text-xs font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full">
+                  <h3 className="text-sm font-semibold text-slate-200">Completitud Corporativa</h3>
+                  <span className="text-xs font-bold text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 px-2 py-0.5 rounded-full">
                     {clientCompletion}%
                   </span>
                 </div>
-                <div className="mt-3 overflow-hidden rounded-full bg-slate-100 h-2.5">
+                <div className="mt-3 overflow-hidden rounded-full bg-slate-950/60 border border-line h-2.5">
                   <motion.div
                     className="h-full bg-gradient-to-r from-indigo-500 to-indigo-600"
                     initial={{ width: 0 }}
@@ -1416,7 +1416,7 @@ export default function ProfilePage() {
                     transition={{ duration: 0.8, ease: "easeOut" }}
                   />
                 </div>
-                <p className="mt-2.5 text-xs text-slate-500 leading-relaxed">
+                <p className="mt-2.5 text-xs text-slate-400 leading-relaxed">
                   Completa todos los detalles de tu empresa para inspirar máxima confianza y atraer mejores perfiles a tus convocatorias.
                 </p>
               </Card>
@@ -1426,7 +1426,7 @@ export default function ProfilePage() {
                 <div className="absolute right-3 top-3">
                   <Dialog.Root open={isCompanyOpen} onOpenChange={setIsCompanyOpen}>
                     <Dialog.Trigger asChild>
-                      <button className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-50 hover:text-slate-900 transition">
+                      <button className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-800/40 hover:text-slate-200 transition">
                         <Pencil className="h-4 w-4" />
                       </button>
                     </Dialog.Trigger>
@@ -1438,7 +1438,7 @@ export default function ProfilePage() {
                               initial={{ opacity: 0 }}
                               animate={{ opacity: 1 }}
                               exit={{ opacity: 0 }}
-                              className="fixed inset-0 z-40 bg-slate-950/30 backdrop-blur-sm"
+                              className="fixed inset-0 z-40 bg-slate-950/60 backdrop-blur-sm"
                             />
                           </Dialog.Overlay>
                           <Dialog.Content asChild>
@@ -1446,25 +1446,25 @@ export default function ProfilePage() {
                               initial={{ opacity: 0, scale: 0.95 }}
                               animate={{ opacity: 1, scale: 1 }}
                               exit={{ opacity: 0, scale: 0.95 }}
-                              className="fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-2xl border bg-white p-6 shadow-xl focus:outline-none"
+                              className="fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-line bg-panel p-6 shadow-2xl focus:outline-none"
                             >
                               <div className="flex justify-between gap-4">
-                                <Dialog.Title className="text-lg font-semibold text-slate-900">Editar Información Empresa</Dialog.Title>
-                                <Dialog.Close className="text-slate-400 hover:text-slate-600">
+                                <Dialog.Title className="text-lg font-semibold text-slate-200">Editar Información Empresa</Dialog.Title>
+                                <Dialog.Close className="text-slate-400 hover:text-slate-200">
                                   <X className="h-5 w-5" />
                                 </Dialog.Close>
                               </div>
                               <div className="mt-4 space-y-4">
                                 <div>
-                                  <label className="mb-1 block text-sm font-medium text-slate-700">Nombre de la Empresa</label>
+                                  <label className="mb-1 block text-sm font-medium text-slate-300">Nombre de la Empresa</label>
                                   <Input id="comp-name" defaultValue={profile.data?.companyName || ""} />
                                 </div>
                                 <div>
-                                  <label className="mb-1 block text-sm font-medium text-slate-700">Industria</label>
+                                  <label className="mb-1 block text-sm font-medium text-slate-300">Industria</label>
                                   <Input id="comp-industry" defaultValue={profile.data?.industry || ""} />
                                 </div>
                                 <div>
-                                  <label className="mb-1 block text-sm font-medium text-slate-700">Tamaño de la Empresa</label>
+                                  <label className="mb-1 block text-sm font-medium text-slate-300">Tamaño de la Empresa</label>
                                   <Input id="comp-size" placeholder="Ej. 11-50 empleados" defaultValue={profile.data?.companySize || ""} />
                                 </div>
                                 <div className="flex justify-end gap-3 pt-3">
@@ -1492,25 +1492,25 @@ export default function ProfilePage() {
                   </Dialog.Root>
                 </div>
 
-                <div className="mx-auto mb-4 h-20 w-20 rounded-2xl bg-indigo-50 flex items-center justify-center text-indigo-600 border border-indigo-100">
+                <div className="mx-auto mb-4 h-20 w-20 rounded-2xl bg-slate-950/60 flex items-center justify-center text-indigo-400 border border-line">
                   <Building2 className="h-10 w-10" />
                 </div>
 
-                <h2 className="text-lg font-bold text-slate-900">
+                <h2 className="text-lg font-bold text-slate-200">
                   {profile.data?.companyName || "Añadir nombre de empresa"}
                 </h2>
-                <p className="text-sm font-semibold text-indigo-600 mt-1">
+                <p className="text-sm font-semibold text-indigo-400 mt-1">
                   {profile.data?.industry || "Definir industria"}
                 </p>
-                <p className="text-xs text-slate-500 mt-1">
+                <p className="text-xs text-slate-450 mt-1">
                   {profile.data?.companySize || "Indicar tamaño"}
                 </p>
 
-                <div className="mt-4 flex items-center justify-center gap-1.5 text-sm text-slate-500 border-t pt-4">
-                  <MapPin className="h-4 w-4 text-slate-400" />
+                <div className="mt-4 flex items-center justify-center gap-1.5 text-sm text-slate-455 border-t border-line pt-4">
+                  <MapPin className="h-4 w-4 text-slate-500" />
                   <span>{profile.data?.city || "Sin ciudad"}, {profile.data?.country || "Sin país"}</span>
                 </div>
-                <div className="mt-2 text-xs text-slate-400">
+                <div className="mt-2 text-xs text-slate-500">
                   Contacto: {profile.data?.firstName} {profile.data?.lastName}
                 </div>
               </Card>
@@ -1520,7 +1520,7 @@ export default function ProfilePage() {
                 <div className="absolute right-3 top-3">
                   <Dialog.Root open={isSocialsOpen} onOpenChange={setIsSocialsOpen}>
                     <Dialog.Trigger asChild>
-                      <button className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-50 hover:text-slate-900 transition">
+                      <button className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-800/40 hover:text-slate-200 transition">
                         <Pencil className="h-4 w-4" />
                       </button>
                     </Dialog.Trigger>
@@ -1532,7 +1532,7 @@ export default function ProfilePage() {
                               initial={{ opacity: 0 }}
                               animate={{ opacity: 1 }}
                               exit={{ opacity: 0 }}
-                              className="fixed inset-0 z-40 bg-slate-950/30 backdrop-blur-sm"
+                              className="fixed inset-0 z-40 bg-slate-950/60 backdrop-blur-sm"
                             />
                           </Dialog.Overlay>
                           <Dialog.Content asChild>
@@ -1540,21 +1540,21 @@ export default function ProfilePage() {
                               initial={{ opacity: 0, scale: 0.95 }}
                               animate={{ opacity: 1, scale: 1 }}
                               exit={{ opacity: 0, scale: 0.95 }}
-                              className="fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-2xl border bg-white p-6 shadow-xl focus:outline-none"
+                              className="fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-line bg-panel p-6 shadow-2xl focus:outline-none"
                             >
                               <div className="flex justify-between gap-4">
-                                <Dialog.Title className="text-lg font-semibold text-slate-900">Editar Enlaces Corporativos</Dialog.Title>
-                                <Dialog.Close className="text-slate-400 hover:text-slate-600">
+                                <Dialog.Title className="text-lg font-semibold text-slate-200">Editar Enlaces Corporativos</Dialog.Title>
+                                <Dialog.Close className="text-slate-400 hover:text-slate-200">
                                   <X className="h-5 w-5" />
                                 </Dialog.Close>
                               </div>
                               <div className="mt-4 space-y-4">
                                 <div>
-                                  <label className="mb-1 block text-sm font-medium text-slate-700">Sitio Web</label>
+                                  <label className="mb-1 block text-sm font-medium text-slate-300">Sitio Web</label>
                                   <Input id="comp-website" placeholder="Ej. https://mi-empresa.com" defaultValue={profile.data?.website || ""} />
                                 </div>
                                 <div>
-                                  <label className="mb-1 block text-sm font-medium text-slate-700">LinkedIn</label>
+                                  <label className="mb-1 block text-sm font-medium text-slate-300">LinkedIn</label>
                                   <Input id="comp-linkedin" placeholder="Ej. https://linkedin.com/company/mi-empresa" defaultValue={profile.data?.linkedIn || ""} />
                                 </div>
                                 <div className="flex justify-end gap-3 pt-3">
@@ -1581,30 +1581,30 @@ export default function ProfilePage() {
                   </Dialog.Root>
                 </div>
 
-                <h3 className="font-semibold text-slate-900 border-b pb-3 mb-4">Canales Oficiales</h3>
+                <h3 className="font-semibold text-slate-200 border-b border-line pb-3 mb-4">Canales Oficiales</h3>
                 <div className="space-y-4 text-sm">
                   <div className="flex items-center justify-between">
-                    <span className="flex items-center gap-2 text-slate-500">
-                      <Globe className="h-4.5 w-4.5 text-slate-400" /> Web
+                    <span className="flex items-center gap-2 text-slate-400">
+                      <Globe className="h-4.5 w-4.5 text-slate-500" /> Web
                     </span>
                     {profile.data?.website ? (
-                      <a href={profile.data.website} target="_blank" rel="noopener noreferrer" className="font-semibold text-indigo-600 hover:underline inline-flex items-center gap-0.5">
+                      <a href={profile.data.website} target="_blank" rel="noopener noreferrer" className="font-semibold text-brand hover:text-indigo-400 inline-flex items-center gap-0.5 transition">
                         Ir al sitio <ExternalLink className="h-3 w-3" />
                       </a>
                     ) : (
-                      <span className="text-slate-400">No definido</span>
+                      <span className="text-slate-550">No definido</span>
                     )}
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="flex items-center gap-2 text-slate-500">
-                      <LinkedInIcon className="h-4.5 w-4.5 text-slate-400" /> LinkedIn
+                    <span className="flex items-center gap-2 text-slate-400">
+                      <LinkedInIcon className="h-4.5 w-4.5 text-slate-500" /> LinkedIn
                     </span>
                     {profile.data?.linkedIn ? (
-                      <a href={profile.data.linkedIn} target="_blank" rel="noopener noreferrer" className="font-semibold text-indigo-600 hover:underline inline-flex items-center gap-0.5">
+                      <a href={profile.data.linkedIn} target="_blank" rel="noopener noreferrer" className="font-semibold text-brand hover:text-indigo-400 inline-flex items-center gap-0.5 transition">
                         Ver empresa <ExternalLink className="h-3 w-3" />
                       </a>
                     ) : (
-                      <span className="text-slate-400">No definido</span>
+                      <span className="text-slate-550">No definido</span>
                     )}
                   </div>
                 </div>
@@ -1615,11 +1615,11 @@ export default function ProfilePage() {
             <div className="space-y-6 lg:col-span-2">
               {/* About Company Card */}
               <Card className="p-6">
-                <div className="flex items-center justify-between border-b pb-3 mb-4">
-                  <h3 className="font-semibold text-slate-900">Sobre la Empresa</h3>
+                <div className="flex items-center justify-between border-b border-line pb-3 mb-4">
+                  <h3 className="font-semibold text-slate-200">Sobre la Empresa</h3>
                   <Dialog.Root open={isBioOpen} onOpenChange={setIsBioOpen}>
                     <Dialog.Trigger asChild>
-                      <button className="flex items-center gap-1.5 text-xs font-semibold text-indigo-600 hover:text-indigo-800 transition">
+                      <button className="flex items-center gap-1.5 text-xs font-semibold text-indigo-400 hover:text-indigo-300 transition">
                         <Pencil className="h-3.5 w-3.5" /> Editar
                       </button>
                     </Dialog.Trigger>
@@ -1631,7 +1631,7 @@ export default function ProfilePage() {
                               initial={{ opacity: 0 }}
                               animate={{ opacity: 1 }}
                               exit={{ opacity: 0 }}
-                              className="fixed inset-0 z-40 bg-slate-950/30 backdrop-blur-sm"
+                              className="fixed inset-0 z-40 bg-slate-950/60 backdrop-blur-sm"
                             />
                           </Dialog.Overlay>
                           <Dialog.Content asChild>
@@ -1639,17 +1639,17 @@ export default function ProfilePage() {
                               initial={{ opacity: 0, scale: 0.95 }}
                               animate={{ opacity: 1, scale: 1 }}
                               exit={{ opacity: 0, scale: 0.95 }}
-                              className="fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 -translate-y-1/2 rounded-2xl border bg-white p-6 shadow-xl focus:outline-none"
+                              className="fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-line bg-panel p-6 shadow-2xl focus:outline-none"
                             >
                               <div className="flex justify-between gap-4">
-                                <Dialog.Title className="text-lg font-semibold text-slate-900">Editar Sobre la Empresa</Dialog.Title>
-                                <Dialog.Close className="text-slate-400 hover:text-slate-600">
+                                <Dialog.Title className="text-lg font-semibold text-slate-200">Editar Sobre la Empresa</Dialog.Title>
+                                <Dialog.Close className="text-slate-400 hover:text-slate-250">
                                   <X className="h-5 w-5" />
                                 </Dialog.Close>
                               </div>
                               <div className="mt-4 space-y-4">
                                 <div>
-                                  <label className="mb-1 block text-sm font-medium text-slate-700">
+                                  <label className="mb-1 block text-sm font-medium text-slate-300">
                                     Sobre la Empresa (Biografía)
                                   </label>
                                   <Textarea
@@ -1663,7 +1663,7 @@ export default function ProfilePage() {
                                       if (label) label.textContent = `${e.target.value.length}/1000`;
                                     }}
                                   />
-                                  <div className="mt-1 flex justify-between text-xs text-slate-400">
+                                  <div className="mt-1 flex justify-between text-xs text-slate-500">
                                     <span>Máximo 1000 caracteres</span>
                                     <span id="comp-bio-counter">{(profile.data?.bio || "").length}/1000</span>
                                   </div>
@@ -1690,20 +1690,20 @@ export default function ProfilePage() {
                     </AnimatePresence>
                   </Dialog.Root>
                 </div>
-                <p className="text-sm leading-6 text-slate-600 whitespace-pre-line">
+                <p className="text-sm leading-6 text-slate-400 whitespace-pre-line">
                   {profile.data?.bio || "Añadir descripción de la empresa. Cuéntales a los profesionales sobre tus proyectos, cultura y propósito corporativo."}
                 </p>
               </Card>
 
               {/* History Tabs Card */}
               <Card className="p-6">
-                <div className="flex items-center gap-4 border-b pb-1 mb-5">
+                <div className="flex items-center gap-4 border-b border-line pb-1 mb-5">
                   <button
                     onClick={() => setClientTab("projects")}
                     className={`pb-3 text-sm font-bold transition border-b-2 -mb-[6px] ${
                       clientTab === "projects"
-                        ? "border-indigo-600 text-slate-900"
-                        : "border-transparent text-slate-400 hover:text-slate-600"
+                        ? "border-indigo-500 text-indigo-400"
+                        : "border-transparent text-slate-500 hover:text-slate-300"
                     }`}
                   >
                     Proyectos Publicados ({clientProjects.data?.length || 0})
@@ -1712,8 +1712,8 @@ export default function ProfilePage() {
                     onClick={() => setClientTab("freelancers")}
                     className={`pb-3 text-sm font-bold transition border-b-2 -mb-[6px] ${
                       clientTab === "freelancers"
-                        ? "border-indigo-600 text-slate-900"
-                        : "border-transparent text-slate-400 hover:text-slate-600"
+                        ? "border-indigo-500 text-indigo-400"
+                        : "border-transparent text-slate-500 hover:text-slate-300"
                     }`}
                   >
                     Freelancers Contratados ({clientHiredFreelancers.length})
@@ -1731,7 +1731,7 @@ export default function ProfilePage() {
                       className="space-y-4"
                     >
                       {clientProjects.isLoading ? (
-                        <p className="text-sm text-slate-500 py-2">Cargando historial...</p>
+                        <p className="text-sm text-slate-400 py-2">Cargando historial...</p>
                       ) : !clientProjects.data || clientProjects.data.length === 0 ? (
                         <EmptyState
                           title="Sin proyectos publicados"
@@ -1741,30 +1741,30 @@ export default function ProfilePage() {
                         <div className="grid gap-4 sm:grid-cols-2">
                           {clientProjects.data.map((proj) => (
                             <Link href={`/projects/${proj.id}`} key={proj.id} className="block group">
-                              <div className="h-full rounded-xl border p-4 hover:border-indigo-100 hover:bg-indigo-50/5 transition duration-200 flex flex-col justify-between">
+                              <div className="h-full rounded-xl border border-line p-4 hover:border-indigo-500/20 hover:bg-indigo-500/5 bg-panel/30 transition duration-200 flex flex-col justify-between">
                                 <div>
                                   <div className="flex items-center justify-between mb-2">
                                     <span className={`rounded-md px-2 py-0.5 text-[10px] font-bold ${
                                       proj.status === "Completado"
-                                        ? "bg-emerald-50 text-emerald-700 border border-emerald-100"
+                                        ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
                                         : proj.status === "En Proceso"
-                                        ? "bg-blue-50 text-blue-700 border border-blue-100"
-                                        : "bg-slate-100 text-slate-600 border border-slate-200"
+                                        ? "bg-blue-500/10 text-blue-400 border border-blue-500/20"
+                                        : "bg-slate-800/50 text-slate-400 border border-line"
                                     }`}>
                                       {proj.status}
                                     </span>
-                                    <span className="text-xs font-semibold text-slate-900">{formatCurrency(proj.budget)}</span>
+                                    <span className="text-xs font-semibold text-slate-200">{formatCurrency(proj.budget)}</span>
                                   </div>
-                                  <h4 className="text-sm font-bold text-slate-900 line-clamp-1 group-hover:text-indigo-600 transition">
+                                  <h4 className="text-sm font-bold text-slate-200 line-clamp-1 group-hover:text-indigo-400 transition">
                                     {proj.title}
                                   </h4>
-                                  <p className="mt-1 text-xs text-slate-500 line-clamp-2 leading-relaxed">
+                                  <p className="mt-1 text-xs text-slate-400 line-clamp-2 leading-relaxed">
                                     {proj.description}
                                   </p>
                                 </div>
-                                <div className="mt-3.5 border-t pt-3 flex items-center justify-between text-[10px] text-slate-400">
+                                <div className="mt-3.5 border-t border-line pt-3 flex items-center justify-between text-[10px] text-slate-500">
                                   <span>Publicado el {formatDate(proj.createdAt)}</span>
-                                  <span className="font-semibold text-indigo-600 group-hover:underline">Ver detalles →</span>
+                                  <span className="font-semibold text-indigo-400 group-hover:underline">Ver detalles →</span>
                                 </div>
                               </div>
                             </Link>
@@ -1791,21 +1791,21 @@ export default function ProfilePage() {
                           {clientHiredFreelancers.map((fl) => (
                             <div
                               key={fl.id}
-                              className="rounded-xl border p-4 transition duration-200 flex items-start gap-3.5"
+                              className="rounded-xl border border-line bg-panel/30 p-4 transition duration-200 flex items-start gap-3.5"
                             >
-                              <div className="h-11 w-11 rounded-full bg-indigo-50 border border-indigo-100 flex items-center justify-center font-bold text-indigo-600 shrink-0">
+                              <div className="h-11 w-11 rounded-full bg-slate-950/60 border border-line flex items-center justify-center font-bold text-indigo-400 shrink-0">
                                 {fl.avatarInitial}
                               </div>
                               <div className="min-w-0 flex-1">
-                                <h4 className="text-sm font-bold text-slate-900 truncate">{fl.name}</h4>
-                                <p className="text-xs text-slate-500 truncate">{fl.role}</p>
-                                <div className="mt-1.5 flex items-center gap-1.5 text-xs text-slate-600">
+                                <h4 className="text-sm font-bold text-slate-200 truncate">{fl.name}</h4>
+                                <p className="text-xs text-slate-400 truncate">{fl.role}</p>
+                                <div className="mt-1.5 flex items-center gap-1.5 text-xs text-slate-405">
                                   <Star className="h-3.5 w-3.5 fill-amber-400 stroke-amber-400" />
-                                  <span className="font-bold text-slate-800">{fl.rating}</span>
-                                  <span className="text-slate-400">({fl.completedProjects} proyectos)</span>
+                                  <span className="font-bold text-slate-200">{fl.rating}</span>
+                                  <span className="text-slate-500">({fl.completedProjects} proyectos)</span>
                                 </div>
-                                <div className="mt-3 border-t pt-2.5 text-[10px] text-slate-400">
-                                  Proyecto: <span className="font-semibold text-slate-700">{fl.projectTitle}</span>
+                                <div className="mt-3 border-t border-line pt-2.5 text-[10px] text-slate-500">
+                                  Proyecto: <span className="font-semibold text-slate-300">{fl.projectTitle}</span>
                                 </div>
                               </div>
                             </div>

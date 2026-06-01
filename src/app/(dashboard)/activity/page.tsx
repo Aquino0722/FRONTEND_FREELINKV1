@@ -114,26 +114,26 @@ export default function ActivityPage() {
           animate="show"
         >
           {/* Top Control & Progress Section */}
-          <motion.div variants={STAGGER_CHILD} className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <motion.div variants={STAGGER_CHILD} className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between rounded-2xl border border-line bg-panel/40 backdrop-blur p-6 shadow-md">
             <div className="flex flex-col gap-2">
-              <label className="text-sm font-medium text-slate-500">Proyecto Activo</label>
+              <label className="text-sm font-medium text-slate-400">Proyecto Activo</label>
               <select
                 value={activeProjectId ?? ""}
                 onChange={(e) => setSelectedProjectId(Number(e.target.value))}
-                className="w-full lg:w-80 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm font-medium text-slate-900 focus:border-brand focus:outline-none focus:ring-1 focus:ring-brand"
+                className="w-full lg:w-80 rounded-lg border border-line bg-slate-950/40 px-3 py-2 text-sm font-medium text-slate-200 focus:border-brand focus:outline-none focus:ring-1 focus:ring-brand"
               >
                 {projects.data?.map(p => (
-                  <option key={p.id} value={p.id}>{p.title}</option>
+                  <option key={p.id} value={p.id} className="bg-slate-900 text-slate-200">{p.title}</option>
                 ))}
               </select>
             </div>
             
             <div className="flex-1 max-w-xl">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-sm font-semibold text-slate-900">Progreso: {phase}</span>
+                <span className="text-sm font-semibold text-slate-200">Progreso: {phase}</span>
                 <span className="text-sm font-medium text-brand">{progress}%</span>
               </div>
-              <div className="h-2 w-full rounded-full bg-slate-100 overflow-hidden">
+              <div className="h-2 w-full rounded-full bg-slate-950/60 border border-line overflow-hidden">
                 <motion.div 
                   initial={{ width: 0 }}
                   animate={{ width: `${progress}%` }}
@@ -141,7 +141,7 @@ export default function ActivityPage() {
                   className="h-full bg-brand rounded-full"
                 />
               </div>
-              <div className="mt-2 flex justify-between text-xs text-slate-400 font-medium">
+              <div className="mt-2 flex justify-between text-xs text-slate-500 font-medium">
                 <span>Contratación</span>
                 <span>Kickoff</span>
                 <span>Desarrollo</span>
@@ -154,24 +154,24 @@ export default function ActivityPage() {
           {/* Weekly Summary Row */}
           <motion.div variants={STAGGER_CONTAINER} className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             <Card className="p-5 flex flex-col gap-2">
-              <span className="text-sm font-medium text-slate-500">Entregables Enviados</span>
-              <span className="text-2xl font-bold text-slate-900">{deliverables.length}</span>
+              <span className="text-sm font-medium text-slate-400">Entregables Enviados</span>
+              <span className="text-2xl font-bold text-slate-100">{deliverables.length}</span>
             </Card>
             <Card className="p-5 flex flex-col gap-2">
-              <span className="text-sm font-medium text-slate-500">Archivos Subidos</span>
-              <span className="text-2xl font-bold text-slate-900">
+              <span className="text-sm font-medium text-slate-400">Archivos Subidos</span>
+              <span className="text-2xl font-bold text-slate-100">
                 {deliverables.reduce((acc, d) => acc + (d.files?.length ?? 0), 0)}
               </span>
             </Card>
             <Card className="p-5 flex flex-col gap-2">
-              <span className="text-sm font-medium text-slate-500">Cambios Solicitados</span>
-              <span className="text-2xl font-bold text-slate-900">
+              <span className="text-sm font-medium text-slate-400">Cambios Solicitados</span>
+              <span className="text-2xl font-bold text-slate-100">
                 {timelineEvents.filter(e => e.type === "changes_requested").length}
               </span>
             </Card>
             <Card className="p-5 flex flex-col gap-2">
-              <span className="text-sm font-medium text-slate-500">Última Actividad</span>
-              <span className="text-lg font-bold text-slate-900 truncate">
+              <span className="text-sm font-medium text-slate-400">Última Actividad</span>
+              <span className="text-lg font-bold text-slate-100 truncate">
                 {timelineEvents[timelineEvents.length - 1] ? formatDate(timelineEvents[timelineEvents.length - 1].createdAt) : "N/A"}
               </span>
             </Card>
@@ -182,18 +182,18 @@ export default function ActivityPage() {
             
             {/* Col 1: Main Timeline */}
             <motion.div variants={STAGGER_CHILD} className="lg:col-span-2 flex flex-col gap-4">
-              <h3 className="text-lg font-semibold text-slate-900">Project Timeline</h3>
+              <h3 className="text-lg font-semibold text-slate-200">Project Timeline</h3>
               <Card className="p-6">
                 {activity.isLoading ? (
                   <div className="space-y-6">
-                    {[1,2,3].map(i => <div key={i} className="h-16 bg-slate-100 rounded animate-pulse" />)}
+                    {[1,2,3].map(i => <div key={i} className="h-16 bg-slate-800/40 rounded animate-pulse" />)}
                   </div>
                 ) : timelineEvents.length === 0 ? (
                   <div className="py-10 text-center text-slate-500">No hay eventos relevantes aún.</div>
                 ) : (
                   <div className="relative pl-4 space-y-8">
                     {/* Timeline vertical line */}
-                    <div className="absolute left-[27px] top-4 bottom-4 w-px bg-slate-200" />
+                    <div className="absolute left-[27px] top-4 bottom-4 w-px bg-line" />
                     
                     {timelineEvents.map((event) => (
                       <motion.div 
@@ -202,16 +202,16 @@ export default function ActivityPage() {
                         animate={{ opacity: 1, x: 0 }}
                         className="relative z-10 flex gap-4"
                       >
-                        <div className="flex-shrink-0 mt-1 h-10 w-10 rounded-full bg-slate-50 border border-slate-200 flex items-center justify-center">
+                        <div className="flex-shrink-0 mt-1 h-10 w-10 rounded-full bg-slate-950/60 border border-line flex items-center justify-center">
                           {getIconForActivity(event.type)}
                         </div>
-                        <div className="flex-1 bg-slate-50 rounded-xl p-4 border border-slate-100">
-                          <p className="text-sm font-semibold text-slate-900">{event.description}</p>
-                          <div className="mt-2 flex items-center gap-3 text-xs font-medium text-slate-500">
-                            <span className="flex items-center gap-1">
+                        <div className="flex-1 bg-panel/40 rounded-xl p-4 border border-line">
+                          <p className="text-sm font-semibold text-slate-200">{event.description}</p>
+                          <div className="mt-2 flex items-center gap-3 text-xs font-medium text-slate-400">
+                            <span className="flex items-center gap-1 text-slate-500">
                               <Calendar className="w-3 h-3" /> {formatDate(event.createdAt)}
                             </span>
-                            <span className="capitalize px-2 py-0.5 rounded-full bg-white border border-slate-200">
+                            <span className="capitalize px-2 py-0.5 rounded-full bg-slate-900/60 border border-line text-slate-400">
                               {event.type.replace(/_/g, " ")}
                             </span>
                           </div>
@@ -225,10 +225,9 @@ export default function ActivityPage() {
 
             {/* Col 2: Side Widgets */}
             <motion.div variants={STAGGER_CHILD} className="flex flex-col gap-6">
-              
-              {/* Work Diary */}
+                      {/* Work Diary */}
               <div className="flex flex-col gap-4">
-                <h3 className="text-lg font-semibold text-slate-900 flex items-center gap-2">
+                <h3 className="text-lg font-semibold text-slate-200 flex items-center gap-2">
                   <Clock className="w-5 h-5 text-brand" /> Work Diary
                 </h3>
                 <Card className="p-4 flex flex-col gap-4 max-h-[400px] overflow-y-auto">
@@ -244,9 +243,9 @@ export default function ActivityPage() {
                       <p className="text-sm text-slate-500 text-center py-4">No hay entradas en la bitácora.</p>
                     ) : (
                       diaryEvents.map((entry) => (
-                        <div key={entry.id} className="border-b border-slate-100 pb-3 last:border-0 last:pb-0">
-                          <p className="text-sm text-slate-800 leading-relaxed">{entry.description}</p>
-                          <span className="text-xs text-slate-400 mt-1 block">
+                        <div key={entry.id} className="border-b border-line pb-3 last:border-0 last:pb-0">
+                          <p className="text-sm text-slate-300 leading-relaxed">{entry.description}</p>
+                          <span className="text-xs text-slate-500 mt-1 block">
                             {formatDate(entry.createdAt)}
                           </span>
                         </div>
@@ -255,40 +254,40 @@ export default function ActivityPage() {
                   </div>
                 </Card>
               </div>
-
+ 
               {/* Deliverables Feed */}
               <div className="flex flex-col gap-4">
-                <h3 className="text-lg font-semibold text-slate-900 flex items-center gap-2">
+                <h3 className="text-lg font-semibold text-slate-200 flex items-center gap-2">
                   <CheckSquare className="w-5 h-5 text-brand" /> Entregables
                 </h3>
                 <Card className="p-0 overflow-hidden">
                   {deliverablesQuery.isLoading ? (
                     <div className="p-4 space-y-3">
-                      {[1,2].map(i => <div key={i} className="h-10 bg-slate-100 rounded animate-pulse" />)}
+                      {[1,2].map(i => <div key={i} className="h-10 bg-slate-800/40 rounded animate-pulse" />)}
                     </div>
                   ) : deliverables.length === 0 ? (
                     <div className="p-6 text-center text-sm text-slate-500">
                       No hay archivos entregados.
                     </div>
                   ) : (
-                    <div className="divide-y divide-slate-100">
+                    <div className="divide-y divide-line">
                       {deliverables.map((del) => (
-                        <div key={del.id} className="p-4 hover:bg-slate-50 transition-colors">
+                        <div key={del.id} className="p-4 hover:bg-slate-800/20 transition-colors">
                           <div className="flex items-start justify-between">
                             <div>
-                              <p className="text-sm font-semibold text-slate-900">{del.title}</p>
-                              <p className="text-xs text-slate-500 mt-1 line-clamp-1">{del.description}</p>
+                              <p className="text-sm font-semibold text-slate-200">{del.title}</p>
+                              <p className="text-xs text-slate-400 mt-1 line-clamp-1">{del.description}</p>
                             </div>
-                            <Badge className="text-[10px] bg-slate-100 text-slate-700 hover:bg-slate-200">{del.status as string}</Badge>
+                            <Badge className="text-[10px] bg-slate-900/60 border border-line text-slate-300 hover:bg-slate-800/60">{del.status as string}</Badge>
                           </div>
                           
                           {del.files && del.files.length > 0 && (
                             <div className="mt-3 space-y-2">
                               {del.files.map(file => (
-                                <div key={file.id} className="flex items-center gap-2 p-2 rounded bg-white border border-slate-200">
-                                  <FileIcon className="w-4 h-4 text-slate-400" />
-                                  <span className="text-xs font-medium text-slate-700 truncate flex-1">{file.fileName}</span>
-                                  <span className="text-[10px] text-slate-400">{((file.fileSize ?? 0) / 1024 / 1024).toFixed(1)}MB</span>
+                                <div key={file.id} className="flex items-center gap-2 p-2 rounded bg-slate-950/40 border border-line">
+                                  <FileIcon className="w-4 h-4 text-slate-500" />
+                                  <span className="text-xs font-medium text-slate-300 truncate flex-1">{file.fileName}</span>
+                                  <span className="text-[10px] text-slate-500">{((file.fileSize ?? 0) / 1024 / 1024).toFixed(1)}MB</span>
                                 </div>
                               ))}
                             </div>

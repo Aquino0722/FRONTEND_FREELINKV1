@@ -523,14 +523,14 @@ export default function PaymentsPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
         >
-          <Card className="hover:shadow-md transition duration-200">
+          <Card className="hover:-translate-y-1 hover:border-slate-800 transition-all duration-300 shadow-md">
             <CardContent className="flex items-center gap-4 p-6">
-              <div className="rounded-xl bg-violet-50 p-3 text-violet-600">
+              <div className="rounded-xl bg-violet-500/10 border border-violet-500/20 p-3 text-violet-400">
                 <Lock className="h-6 w-6" />
               </div>
               <div>
                 <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">Fondos en Escrow</p>
-                <h3 className="mt-1 text-2xl font-bold text-slate-900">{formatCurrency(metrics.escrow)}</h3>
+                <h3 className="mt-1 text-2xl font-bold text-slate-100">{formatCurrency(metrics.escrow)}</h3>
                 <p className="text-[10px] text-slate-500 mt-0.5">En garantía del proyecto</p>
               </div>
             </CardContent>
@@ -543,16 +543,16 @@ export default function PaymentsPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: 0.05 }}
         >
-          <Card className="hover:shadow-md transition duration-200">
+          <Card className="hover:-translate-y-1 hover:border-slate-800 transition-all duration-300 shadow-md">
             <CardContent className="flex items-center gap-4 p-6">
-              <div className="rounded-xl bg-emerald-50 p-3 text-emerald-600">
+              <div className="rounded-xl bg-emerald-500/10 border border-emerald-500/20 p-3 text-emerald-400">
                 <CheckCircle2 className="h-6 w-6" />
               </div>
               <div>
                 <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
                   {user?.role === "Cliente" ? "Pagado" : "Ganado"}
                 </p>
-                <h3 className="mt-1 text-2xl font-bold text-slate-900">{formatCurrency(metrics.paid)}</h3>
+                <h3 className="mt-1 text-2xl font-bold text-slate-100">{formatCurrency(metrics.paid)}</h3>
                 <p className="text-[10px] text-slate-500 mt-0.5">Transacciones aprobadas</p>
               </div>
             </CardContent>
@@ -565,14 +565,14 @@ export default function PaymentsPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: 0.1 }}
         >
-          <Card className="hover:shadow-md transition duration-200">
+          <Card className="hover:-translate-y-1 hover:border-slate-800 transition-all duration-300 shadow-md">
             <CardContent className="flex items-center gap-4 p-6">
-              <div className="rounded-xl bg-amber-50 p-3 text-amber-600">
+              <div className="rounded-xl bg-amber-500/10 border border-amber-500/20 p-3 text-amber-400">
                 <Clock className="h-6 w-6" />
               </div>
               <div>
                 <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">Pendiente</p>
-                <h3 className="mt-1 text-2xl font-bold text-slate-900">{formatCurrency(metrics.pending)}</h3>
+                <h3 className="mt-1 text-2xl font-bold text-slate-100">{formatCurrency(metrics.pending)}</h3>
                 <p className="text-[10px] text-slate-500 mt-0.5">Hitos programados</p>
               </div>
             </CardContent>
@@ -585,14 +585,14 @@ export default function PaymentsPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: 0.15 }}
         >
-          <Card className="hover:shadow-md transition duration-200">
+          <Card className="hover:-translate-y-1 hover:border-slate-800 transition-all duration-300 shadow-md">
             <CardContent className="flex items-center gap-4 p-6">
-              <div className="rounded-xl bg-blue-50 p-3 text-blue-600">
+              <div className="rounded-xl bg-blue-500/10 border border-blue-500/20 p-3 text-blue-400">
                 <Calendar className="h-6 w-6" />
               </div>
               <div>
                 <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">Próximo Pago</p>
-                <h3 className="mt-1 text-2xl font-bold text-slate-900">{formatCurrency(metrics.nextPayment)}</h3>
+                <h3 className="mt-1 text-2xl font-bold text-slate-100">{formatCurrency(metrics.nextPayment)}</h3>
                 <p className="text-[10px] text-slate-500 mt-0.5">Hitos en revisión</p>
               </div>
             </CardContent>
@@ -601,13 +601,13 @@ export default function PaymentsPage() {
       </div>
 
       {/* Tabs de Navegación */}
-      <div className="flex border-b border-slate-200">
+      <div className="flex border-b border-line">
         <button
           onClick={() => setActiveTab("transactions")}
           className={`flex items-center gap-2 border-b-2 px-6 py-3.5 text-sm font-semibold transition ${
             activeTab === "transactions"
-              ? "border-brand text-brand"
-              : "border-transparent text-slate-500 hover:border-slate-300 hover:text-slate-700"
+              ? "border-brand text-brand bg-brand/5"
+              : "border-transparent text-slate-400 hover:border-slate-700 hover:text-slate-200"
           }`}
         >
           <Wallet className="h-4 w-4" />
@@ -617,8 +617,8 @@ export default function PaymentsPage() {
           onClick={() => setActiveTab("methods")}
           className={`flex items-center gap-2 border-b-2 px-6 py-3.5 text-sm font-semibold transition ${
             activeTab === "methods"
-              ? "border-brand text-brand"
-              : "border-transparent text-slate-500 hover:border-slate-300 hover:text-slate-700"
+              ? "border-brand text-brand bg-brand/5"
+              : "border-transparent text-slate-400 hover:border-slate-700 hover:text-slate-200"
           }`}
         >
           <CreditCard className="h-4 w-4" />
@@ -628,8 +628,8 @@ export default function PaymentsPage() {
           onClick={() => setActiveTab("invoices")}
           className={`flex items-center gap-2 border-b-2 px-6 py-3.5 text-sm font-semibold transition ${
             activeTab === "invoices"
-              ? "border-brand text-brand"
-              : "border-transparent text-slate-500 hover:border-slate-300 hover:text-slate-700"
+              ? "border-brand text-brand bg-brand/5"
+              : "border-transparent text-slate-400 hover:border-slate-700 hover:text-slate-200"
           }`}
         >
           <FileText className="h-4 w-4" />
@@ -653,10 +653,10 @@ export default function PaymentsPage() {
               {/* Tabla de Transacciones */}
               <div className="lg:col-span-2 space-y-4">
                 <Card className="overflow-hidden">
-                  <CardHeader className="flex flex-col gap-4 border-b bg-slate-50/50 p-5 sm:flex-row sm:items-center sm:justify-between">
+                  <CardHeader className="flex flex-col gap-4 border-b border-line bg-slate-950/20 p-5 sm:flex-row sm:items-center sm:justify-between">
                     <div>
-                      <h3 className="text-base font-bold text-slate-900">Historial de Hitos</h3>
-                      <p className="text-xs text-slate-500 mt-0.5">
+                      <h3 className="text-base font-bold text-slate-200">Historial de Hitos</h3>
+                      <p className="text-xs text-slate-400 mt-0.5">
                         Selecciona una transacción para inspeccionar su línea de tiempo actual.
                       </p>
                     </div>
@@ -664,25 +664,25 @@ export default function PaymentsPage() {
                     {/* Filtros */}
                     <div className="flex flex-wrap items-center gap-2">
                       <div className="relative">
-                        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+                        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
                         <input
                           type="text"
                           placeholder="Buscar concepto..."
                           value={searchTerm}
                           onChange={(e) => setSearchTerm(e.target.value)}
-                          className="h-9 rounded-lg border bg-white pl-9 pr-4 text-xs placeholder-slate-400 focus:border-brand focus:outline-none"
+                          className="h-9 rounded-lg border border-line bg-slate-950/40 text-slate-200 pl-9 pr-4 text-xs placeholder-slate-500 focus:border-brand focus:outline-none"
                         />
                       </div>
                       <select
                         value={statusFilter}
                         onChange={(e) => setStatusFilter(e.target.value)}
-                        className="h-9 rounded-lg border bg-white px-3 text-xs text-slate-700 focus:border-brand focus:outline-none"
+                        className="h-9 rounded-lg border border-line bg-slate-950/40 px-3 text-xs text-slate-300 focus:border-brand focus:outline-none"
                       >
-                        <option value="All">Todos</option>
-                        <option value="Paid">Paid</option>
-                        <option value="Pending">Pending</option>
-                        <option value="In Review">In Review</option>
-                        <option value="Escrow">Escrow</option>
+                        <option value="All" className="bg-slate-900 text-slate-200">Todos</option>
+                        <option value="Paid" className="bg-slate-900 text-slate-200">Paid</option>
+                        <option value="Pending" className="bg-slate-900 text-slate-200">Pending</option>
+                        <option value="In Review" className="bg-slate-900 text-slate-200">In Review</option>
+                        <option value="Escrow" className="bg-slate-900 text-slate-200">Escrow</option>
                       </select>
                     </div>
                   </CardHeader>
@@ -690,11 +690,11 @@ export default function PaymentsPage() {
                   <div className="overflow-x-auto">
                     {filteredTransactions.length === 0 ? (
                       <div className="flex flex-col items-center justify-center p-14 text-center">
-                        <div className="rounded-full bg-slate-100 p-4 mb-4">
-                          <Wallet className="h-8 w-8 text-slate-400" />
+                        <div className="rounded-full bg-slate-950/60 border border-line p-4 mb-4">
+                          <Wallet className="h-8 w-8 text-slate-500" />
                         </div>
-                        <h4 className="text-sm font-semibold text-slate-900">No se encontraron pagos</h4>
-                        <p className="text-xs text-slate-500 mt-2 max-w-sm">
+                        <h4 className="text-sm font-semibold text-slate-200">No se encontraron pagos</h4>
+                        <p className="text-xs text-slate-400 mt-2 max-w-sm">
                           No existen pagos que coincidan con la búsqueda o filtros aplicados actualmente.
                         </p>
                         <Button
@@ -712,7 +712,7 @@ export default function PaymentsPage() {
                     ) : (
                       <table className="w-full text-left text-sm border-collapse">
                         <thead>
-                          <tr className="border-b bg-slate-50/30 text-xs font-semibold uppercase tracking-wider text-slate-500">
+                          <tr className="border-b border-line bg-slate-950/40 text-xs font-semibold uppercase tracking-wider text-slate-400">
                             <th className="px-5 py-3">Concepto</th>
                             <th className="px-5 py-3">Fecha</th>
                             <th className="px-5 py-3">Estado</th>
@@ -728,8 +728,8 @@ export default function PaymentsPage() {
                                 key={tx.id}
                                 layoutId={`row-${tx.id}`}
                                 onClick={() => setSelectedTxId(tx.id)}
-                                className={`group cursor-pointer border-b last:border-0 hover:bg-slate-50/50 transition duration-150 ${
-                                  isSelected ? "bg-brand-soft/30 hover:bg-brand-soft/40" : ""
+                                className={`group cursor-pointer border-b border-line last:border-0 hover:bg-slate-800/20 transition duration-150 ${
+                                  isSelected ? "bg-brand/10 hover:bg-brand/20" : ""
                                 }`}
                               >
                                 <td className="px-5 py-4">
@@ -737,12 +737,12 @@ export default function PaymentsPage() {
                                     <div
                                       className={`rounded-lg p-2 ${
                                         tx.status === "Paid"
-                                          ? "bg-emerald-50 text-emerald-600"
+                                          ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
                                           : tx.status === "Escrow"
-                                          ? "bg-violet-50 text-violet-600"
+                                          ? "bg-violet-500/10 text-violet-400 border border-violet-500/20"
                                           : tx.status === "In Review"
-                                          ? "bg-blue-50 text-blue-600"
-                                          : "bg-amber-50 text-amber-600"
+                                          ? "bg-blue-500/10 text-blue-400 border border-blue-500/20"
+                                          : "bg-amber-500/10 text-amber-400 border border-amber-500/20"
                                       }`}
                                     >
                                       {tx.status === "Paid" ? (
@@ -752,7 +752,7 @@ export default function PaymentsPage() {
                                       )}
                                     </div>
                                     <div>
-                                      <p className="font-medium text-slate-900 leading-tight">
+                                      <p className="font-medium text-slate-200 leading-tight">
                                         {tx.description || "Milestone del Proyecto"}
                                       </p>
                                       <p className="text-[11px] text-slate-500 mt-0.5">
@@ -761,13 +761,13 @@ export default function PaymentsPage() {
                                     </div>
                                   </div>
                                 </td>
-                                <td className="whitespace-nowrap px-5 py-4 text-xs text-slate-500">
+                                <td className="whitespace-nowrap px-5 py-4 text-xs text-slate-400">
                                   {formatDate(tx.createdAt)}
                                 </td>
                                 <td className="px-5 py-4">
                                   <StatusBadge status={tx.status} />
                                 </td>
-                                <td className="whitespace-nowrap px-5 py-4 font-bold text-slate-900">
+                                <td className="whitespace-nowrap px-5 py-4 font-bold text-slate-200">
                                   {formatCurrency(tx.amount)}
                                 </td>
                                 <td className="px-5 py-4 text-right" onClick={(e) => e.stopPropagation()}>
@@ -776,7 +776,7 @@ export default function PaymentsPage() {
                                       size="sm"
                                       variant="ghost"
                                       onClick={() => setSelectedTxId(tx.id)}
-                                      className="text-slate-600 group-hover:text-brand"
+                                      className="text-slate-400 group-hover:text-brand"
                                     >
                                       Detalles
                                     </Button>
@@ -814,20 +814,20 @@ export default function PaymentsPage() {
 
               {/* Payment Timeline Sidepanel */}
               <div className="lg:col-span-1">
-                <Card className="sticky top-6 border border-slate-200 overflow-hidden shadow-sm">
-                  <div className="bg-slate-900 p-5 text-white">
+                <Card className="sticky top-6 border border-line overflow-hidden shadow-md">
+                  <div className="bg-slate-950/80 border-b border-line p-5 text-slate-200">
                     <div className="flex items-center gap-2">
                       <ShieldCheck className="h-5 w-5 text-emerald-400" />
                       <h3 className="font-bold text-sm uppercase tracking-wider">Flujo de Garantía (Escrow)</h3>
                     </div>
                     {selectedTx ? (
                       <div className="mt-4">
-                        <p className="text-xs text-slate-400 uppercase tracking-widest font-semibold">
+                        <p className="text-xs text-slate-555 uppercase tracking-widest font-semibold text-slate-500">
                           Inspeccionando Hito
                         </p>
-                        <h4 className="font-bold text-base mt-1 line-clamp-1">{selectedTx.description}</h4>
+                        <h4 className="font-bold text-base mt-1 line-clamp-1 text-slate-200">{selectedTx.description}</h4>
                         <div className="flex items-baseline gap-2 mt-2">
-                          <span className="text-2xl font-extrabold">{formatCurrency(selectedTx.amount)}</span>
+                          <span className="text-2xl font-extrabold text-slate-100">{formatCurrency(selectedTx.amount)}</span>
                           <span className="text-xs text-slate-400">USD</span>
                         </div>
                       </div>
@@ -840,7 +840,7 @@ export default function PaymentsPage() {
 
                   <CardContent className="p-5">
                     {selectedTx ? (
-                      <div className="relative border-l border-slate-200 pl-6 ml-3 py-2 space-y-6">
+                      <div className="relative border-l border-line pl-6 ml-3 py-2 space-y-6">
                         {getTimelineSteps(selectedTx.status).map((step, idx) => (
                           <div className="relative" key={step.key}>
                             {/* Dot indicator */}
@@ -849,8 +849,8 @@ export default function PaymentsPage() {
                                 step.state === "completed"
                                   ? "bg-emerald-500 border-emerald-500 text-white"
                                   : step.state === "current"
-                                  ? "bg-brand border-brand text-white shadow-[0_0_10px_rgba(79,70,229,0.4)] animate-pulse"
-                                  : "bg-white border-slate-300 text-slate-400"
+                                  ? "bg-brand border-brand text-white shadow-[0_0_10px_rgba(99,102,241,0.4)] animate-pulse"
+                                  : "bg-slate-900 border-line text-slate-555 text-slate-500"
                               }`}
                             >
                               {step.state === "completed" ? (
@@ -865,15 +865,15 @@ export default function PaymentsPage() {
                               <h5
                                 className={`text-xs font-bold transition ${
                                   step.state === "completed"
-                                    ? "text-slate-800"
+                                    ? "text-slate-300"
                                     : step.state === "current"
                                     ? "text-brand"
-                                    : "text-slate-400"
+                                    : "text-slate-500"
                                 }`}
                               >
                                 {step.label}
                               </h5>
-                              <p className="text-[11px] text-slate-500 mt-0.5 leading-normal">{step.desc}</p>
+                              <p className="text-[11px] text-slate-400 mt-0.5 leading-normal">{step.desc}</p>
                               {step.state === "current" && (
                                 <div className="mt-2 flex gap-2">
                                   {step.key === "review" && user?.role === "Cliente" && (
@@ -904,7 +904,7 @@ export default function PaymentsPage() {
                                       Enviar Entregable
                                     </Button>
                                   )}
-                                  <span className="inline-flex items-center gap-1 rounded bg-slate-100 px-2 py-0.5 text-[9px] font-semibold text-slate-600">
+                                  <span className="inline-flex items-center gap-1 rounded bg-slate-950/60 border border-line px-2 py-0.5 text-[9px] font-semibold text-slate-400 font-medium">
                                     A la espera
                                   </span>
                                 </div>
@@ -914,8 +914,8 @@ export default function PaymentsPage() {
                         ))}
                       </div>
                     ) : (
-                      <div className="text-center py-6 text-slate-400 text-xs flex flex-col items-center">
-                        <Info className="h-6 w-6 text-slate-300 mb-2" />
+                      <div className="text-center py-6 text-slate-500 text-xs flex flex-col items-center">
+                        <Info className="h-6 w-6 text-slate-400 mb-2" />
                         Selecciona un pago para ver el flujo.
                       </div>
                     )}
@@ -940,8 +940,8 @@ export default function PaymentsPage() {
                 <div className="space-y-6">
                   <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <div>
-                      <h3 className="text-lg font-bold text-slate-900">Tarjetas de Crédito Guardadas</h3>
-                      <p className="text-sm text-slate-500 mt-0.5">
+                      <h3 className="text-lg font-bold text-slate-200">Tarjetas de Crédito Guardadas</h3>
+                      <p className="text-sm text-slate-400 mt-0.5">
                         Administra tus medios de pago seguros (Stripe Elements Sandbox).
                       </p>
                     </div>
@@ -953,22 +953,22 @@ export default function PaymentsPage() {
                         </Button>
                       </Dialog.Trigger>
                       <Dialog.Portal>
-                        <Dialog.Overlay className="fixed inset-0 z-40 bg-slate-950/40 backdrop-blur-sm" />
-                        <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-2xl border bg-white p-6 shadow-2xl focus:outline-none">
+                        <Dialog.Overlay className="fixed inset-0 z-40 bg-slate-950/60 backdrop-blur-sm" />
+                        <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-line bg-panel p-6 shadow-2xl focus:outline-none">
                           <div className="flex items-center justify-between">
-                            <Dialog.Title className="text-base font-bold text-slate-900">
+                            <Dialog.Title className="text-base font-bold text-slate-200">
                               Nuevo Método de Pago (Stripe Checkout)
                             </Dialog.Title>
-                            <Dialog.Close className="text-slate-400 hover:text-slate-600">
+                            <Dialog.Close className="text-slate-400 hover:text-slate-200">
                               <X className="h-5 w-5" />
                             </Dialog.Close>
                           </div>
-                          <Dialog.Description className="text-xs text-slate-500 mt-1">
+                          <Dialog.Description className="text-xs text-slate-400 mt-1">
                             Introduce tus datos de forma segura. La conexión está cifrada.
                           </Dialog.Description>
 
                           {/* Interactive Credit Card Preview */}
-                          <div className="mt-5 rounded-2xl bg-gradient-to-r from-slate-900 to-slate-800 p-5 text-white shadow-lg relative overflow-hidden">
+                          <div className="mt-5 rounded-2xl bg-gradient-to-r from-slate-950 to-slate-900 border border-line p-5 text-white shadow-lg relative overflow-hidden">
                             {/* Card Brand */}
                             <div className="absolute right-5 top-5">
                               {getCardBrand(newCardNumber) === "visa" && (
@@ -984,20 +984,20 @@ export default function PaymentsPage() {
                                 <CreditCard className="h-6 w-6 text-slate-400" />
                               )}
                             </div>
-                            <div className="h-6 w-9 rounded bg-yellow-400/80 mb-6" /> {/* Chip */}
-                            <p className="text-base font-bold tracking-widest">
+                            <div className="h-6 w-9 rounded bg-yellow-500/80 mb-6" /> {/* Chip */}
+                            <p className="text-base font-bold tracking-widest text-slate-200">
                               {newCardNumber || "•••• •••• •••• ••••"}
                             </p>
                             <div className="mt-6 flex justify-between">
                               <div>
                                 <p className="text-[9px] uppercase tracking-wider text-slate-400">Titular</p>
-                                <p className="text-xs font-bold truncate max-w-[200px]">
+                                <p className="text-xs font-bold truncate max-w-[200px] text-slate-200">
                                   {newCardName.toUpperCase() || "NOMBRE DEL TITULAR"}
                                 </p>
                               </div>
                               <div>
                                 <p className="text-[9px] uppercase tracking-wider text-slate-400">Expiración</p>
-                                <p className="text-xs font-bold">{newCardExpiry || "MM/AA"}</p>
+                                <p className="text-xs font-bold text-slate-200">{newCardExpiry || "MM/AA"}</p>
                               </div>
                             </div>
                           </div>
@@ -1005,59 +1005,59 @@ export default function PaymentsPage() {
                           {/* Card Input Form */}
                           <form onSubmit={handleAddCard} className="mt-6 space-y-4">
                             <div>
-                              <label className="block text-xs font-semibold text-slate-700">Nombre en la tarjeta</label>
+                              <label className="block text-xs font-semibold text-slate-355 text-slate-300">Nombre en la tarjeta</label>
                               <input
                                 type="text"
                                 required
                                 value={newCardName}
                                 onChange={(e) => setNewCardName(e.target.value)}
-                                className="mt-1 h-10 w-full rounded-xl border px-3 text-sm focus:border-brand focus:outline-none"
+                                className="mt-1 h-10 w-full rounded-xl border border-line bg-slate-950/40 text-slate-255 text-slate-200 px-3 text-sm focus:border-brand focus:outline-none"
                                 placeholder="Juan Pérez"
                               />
                             </div>
                             <div>
-                              <label className="block text-xs font-semibold text-slate-700">Número de Tarjeta</label>
+                              <label className="block text-xs font-semibold text-slate-355 text-slate-300">Número de Tarjeta</label>
                               <div className="relative">
                                 <input
                                   type="text"
                                   required
                                   value={newCardNumber}
                                   onChange={handleCardNumberChange}
-                                  className="mt-1 h-10 w-full rounded-xl border px-3 text-sm focus:border-brand focus:outline-none"
+                                  className="mt-1 h-10 w-full rounded-xl border border-line bg-slate-950/40 text-slate-255 text-slate-200 px-3 text-sm focus:border-brand focus:outline-none"
                                   placeholder="4000 1234 5678 9010"
                                 />
                                 <div className="absolute right-3 top-1/2 -translate-y-1/2">
-                                  <Lock className="h-4 w-4 text-slate-400" />
+                                  <Lock className="h-4 w-4 text-slate-500" />
                                 </div>
                               </div>
                             </div>
                             <div className="grid grid-cols-2 gap-4">
                               <div>
-                                <label className="block text-xs font-semibold text-slate-700">Vencimiento</label>
+                                <label className="block text-xs font-semibold text-slate-355 text-slate-300">Vencimiento</label>
                                 <input
                                   type="text"
                                   required
                                   value={newCardExpiry}
                                   onChange={handleExpiryChange}
-                                  className="mt-1 h-10 w-full rounded-xl border px-3 text-sm focus:border-brand focus:outline-none"
+                                  className="mt-1 h-10 w-full rounded-xl border border-line bg-slate-950/40 text-slate-255 text-slate-200 px-3 text-sm focus:border-brand focus:outline-none"
                                   placeholder="MM/AA"
                                 />
                               </div>
                               <div>
-                                <label className="block text-xs font-semibold text-slate-700">CVC / CVV</label>
+                                <label className="block text-xs font-semibold text-slate-355 text-slate-300">CVC / CVV</label>
                                 <input
                                   type="password"
                                   required
                                   maxLength={4}
                                   value={newCardCvc}
                                   onChange={(e) => setNewCardCvc(e.target.value.replace(/\D/g, ""))}
-                                  className="mt-1 h-10 w-full rounded-xl border px-3 text-sm focus:border-brand focus:outline-none"
+                                  className="mt-1 h-10 w-full rounded-xl border border-line bg-slate-950/40 text-slate-255 text-slate-200 px-3 text-sm focus:border-brand focus:outline-none"
                                   placeholder="•••"
                                 />
                               </div>
                             </div>
 
-                            <div className="mt-6 flex justify-end gap-3 pt-3 border-t">
+                            <div className="mt-6 flex justify-end gap-3 pt-3 border-t border-line">
                               <Dialog.Close asChild>
                                 <Button variant="secondary" type="button">
                                   Cancelar
@@ -1073,11 +1073,11 @@ export default function PaymentsPage() {
 
                   {cards.length === 0 ? (
                     <Card className="flex flex-col items-center justify-center p-14 text-center">
-                      <div className="rounded-full bg-slate-100 p-4 mb-4">
-                        <CreditCard className="h-8 w-8 text-slate-400" />
+                      <div className="rounded-full bg-slate-950/60 border border-line p-4 mb-4">
+                        <CreditCard className="h-8 w-8 text-slate-500" />
                       </div>
-                      <h4 className="text-sm font-semibold text-slate-900">No tienes tarjetas registradas</h4>
-                      <p className="text-xs text-slate-500 mt-2 max-w-sm">
+                      <h4 className="text-sm font-semibold text-slate-200">No tienes tarjetas registradas</h4>
+                      <p className="text-xs text-slate-400 mt-2 max-w-sm">
                         Agrega un método de pago seguro para financiar tus contratos de freelancers con total garantía.
                       </p>
                       <Button className="mt-4" onClick={() => setIsAddCardOpen(true)}>
@@ -1090,8 +1090,8 @@ export default function PaymentsPage() {
                         <motion.div
                           key={card.id}
                           layout
-                          className={`relative flex flex-col justify-between rounded-2xl border p-5 bg-white transition hover:shadow-md ${
-                            card.isDefault ? "border-brand ring-1 ring-brand" : "border-slate-200"
+                          className={`relative flex flex-col justify-between rounded-2xl border p-5 bg-panel/40 transition hover:shadow-md ${
+                            card.isDefault ? "border-brand ring-1 ring-brand" : "border-line"
                           }`}
                         >
                           {/* Card Top */}
@@ -1100,21 +1100,21 @@ export default function PaymentsPage() {
                               <div
                                 className={`rounded-lg p-2.5 ${
                                   card.brand === "visa"
-                                    ? "bg-blue-50 text-blue-600"
+                                    ? "bg-blue-500/10 text-blue-400 border border-blue-500/20"
                                     : card.brand === "mastercard"
-                                    ? "bg-amber-50 text-amber-600"
+                                    ? "bg-amber-500/10 text-amber-400 border border-amber-500/20"
                                     : card.brand === "amex"
-                                    ? "bg-emerald-50 text-emerald-600"
-                                    : "bg-slate-50 text-slate-600"
+                                    ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
+                                    : "bg-slate-800/40 text-slate-400 border border-line"
                                 }`}
                               >
                                 <CreditCard className="h-5 w-5" />
                               </div>
                               <div>
-                                <p className="text-sm font-bold text-slate-900 capitalize">
+                                <p className="text-sm font-bold text-slate-200 capitalize">
                                   {card.brand} •••• {card.last4}
                                 </p>
-                                <p className="text-xs text-slate-400 mt-0.5">Expira: {card.expiry}</p>
+                                <p className="text-xs text-slate-555 text-slate-500 mt-0.5">Expira: {card.expiry}</p>
                               </div>
                             </div>
                             {card.isDefault && (
@@ -1125,8 +1125,8 @@ export default function PaymentsPage() {
                           </div>
 
                           {/* Card Bottom */}
-                          <div className="mt-6 flex items-center justify-between border-t pt-3">
-                            <p className="text-[10px] text-slate-500 truncate max-w-[130px]" title={card.cardholderName}>
+                          <div className="mt-6 flex items-center justify-between border-t border-line pt-3">
+                            <p className="text-[10px] text-slate-400 truncate max-w-[130px]" title={card.cardholderName}>
                               {card.cardholderName}
                             </p>
                             <div className="flex items-center gap-2">
@@ -1156,9 +1156,9 @@ export default function PaymentsPage() {
                   )}
 
                   {/* Security Badge */}
-                  <div className="rounded-2xl bg-slate-50 p-4 flex items-center gap-3 border border-slate-100">
-                    <ShieldCheck className="h-5 w-5 text-emerald-600 flex-shrink-0" />
-                    <p className="text-xs text-slate-600 leading-normal">
+                  <div className="rounded-2xl bg-slate-950/40 p-4 flex items-center gap-3 border border-line">
+                    <ShieldCheck className="h-5 w-5 text-emerald-555 text-emerald-500 flex-shrink-0" />
+                    <p className="text-xs text-slate-400 leading-normal">
                       Tus transacciones están respaldadas por la infraestructura sandbox de Stripe. Ningún número de tarjeta físico es almacenado en nuestros servidores.
                     </p>
                   </div>
@@ -1169,16 +1169,16 @@ export default function PaymentsPage() {
               {user?.role === "Freelancer" && (
                 <div className="space-y-6">
                   {/* Stripe Express Link Action */}
-                  <Card className="border border-indigo-100 bg-gradient-to-r from-indigo-50/50 to-purple-50/50 p-6">
+                  <Card className="border border-indigo-500/20 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 p-6">
                     <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                       <div className="space-y-1">
                         <div className="flex items-center gap-2">
-                          <span className="rounded-full bg-indigo-100 px-2.5 py-0.5 text-xs font-semibold text-indigo-700">
+                          <span className="rounded-full bg-indigo-500/20 border border-indigo-500/20 px-2.5 py-0.5 text-xs font-semibold text-indigo-400">
                             Recomendado
                           </span>
-                          <h4 className="font-bold text-sm text-slate-900">Vincular con Stripe Connect</h4>
+                          <h4 className="font-bold text-sm text-slate-100">Vincular con Stripe Connect</h4>
                         </div>
-                        <p className="text-xs text-slate-500 max-w-xl leading-normal">
+                        <p className="text-xs text-slate-400 max-w-xl leading-normal">
                           Configura retiros instantáneos y automáticos a tu banco o tarjeta de débito en más de 120 países con Stripe Connect Express.
                         </p>
                       </div>
@@ -1196,8 +1196,8 @@ export default function PaymentsPage() {
                   {/* Bank Accounts Section */}
                   <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <div>
-                      <h3 className="text-lg font-bold text-slate-900">Cuentas Bancarias Locales</h3>
-                      <p className="text-sm text-slate-500 mt-0.5">
+                      <h3 className="text-lg font-bold text-slate-200">Cuentas Bancarias Locales</h3>
+                      <p className="text-sm text-slate-400 mt-0.5">
                         Agrega cuentas locales para transferencias programadas.
                       </p>
                     </div>
@@ -1209,57 +1209,57 @@ export default function PaymentsPage() {
                         </Button>
                       </Dialog.Trigger>
                       <Dialog.Portal>
-                        <Dialog.Overlay className="fixed inset-0 z-40 bg-slate-950/40 backdrop-blur-sm" />
-                        <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-2xl border bg-white p-6 shadow-2xl focus:outline-none">
+                        <Dialog.Overlay className="fixed inset-0 z-40 bg-slate-950/60 backdrop-blur-sm" />
+                        <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-line bg-panel p-6 shadow-2xl focus:outline-none">
                           <div className="flex items-center justify-between">
-                            <Dialog.Title className="text-base font-bold text-slate-900">
+                            <Dialog.Title className="text-base font-bold text-slate-200">
                               Nueva Cuenta de Retiro
                             </Dialog.Title>
-                            <Dialog.Close className="text-slate-400 hover:text-slate-600">
+                            <Dialog.Close className="text-slate-400 hover:text-slate-200">
                               <X className="h-5 w-5" />
                             </Dialog.Close>
                           </div>
-                          <Dialog.Description className="text-xs text-slate-500 mt-1">
+                          <Dialog.Description className="text-xs text-slate-400 mt-1">
                             Tus ingresos se transferirán a esta cuenta al solicitar el cobro.
                           </Dialog.Description>
 
                           <form onSubmit={handleAddBank} className="mt-5 space-y-4">
                             <div>
-                              <label className="block text-xs font-semibold text-slate-700">Entidad Bancaria</label>
+                              <label className="block text-xs font-semibold text-slate-300">Entidad Bancaria</label>
                               <input
                                 type="text"
                                 required
                                 value={newBankName}
                                 onChange={(e) => setNewBankName(e.target.value)}
-                                className="mt-1 h-10 w-full rounded-xl border px-3 text-sm focus:border-brand focus:outline-none"
+                                className="mt-1 h-10 w-full rounded-xl border border-line bg-slate-950/40 text-slate-200 px-3 text-sm focus:border-brand focus:outline-none"
                                 placeholder="Bancolombia, BBVA, etc."
                               />
                             </div>
                             <div>
-                              <label className="block text-xs font-semibold text-slate-700">Tipo de Cuenta</label>
+                              <label className="block text-xs font-semibold text-slate-300">Tipo de Cuenta</label>
                               <select
                                 value={newAccountType}
                                 onChange={(e) => setNewAccountType(e.target.value)}
-                                className="mt-1 h-10 w-full rounded-xl border bg-white px-3 text-sm focus:border-brand focus:outline-none"
+                                className="mt-1 h-10 w-full rounded-xl border border-line bg-slate-950/40 text-slate-200 px-3 text-sm focus:border-brand focus:outline-none"
                               >
-                                <option value="Ahorros">Cuenta de Ahorros</option>
-                                <option value="Corriente">Cuenta Corriente</option>
-                                <option value="Monedero">Monedero Electrónico</option>
+                                <option value="Ahorros" className="bg-slate-900">Cuenta de Ahorros</option>
+                                <option value="Corriente" className="bg-slate-900">Cuenta Corriente</option>
+                                <option value="Monedero" className="bg-slate-900">Monedero Electrónico</option>
                               </select>
                             </div>
                             <div>
-                              <label className="block text-xs font-semibold text-slate-700">Número de Cuenta</label>
+                              <label className="block text-xs font-semibold text-slate-300">Número de Cuenta</label>
                               <input
                                 type="text"
                                 required
                                 value={newAccountNumber}
                                 onChange={(e) => setNewAccountNumber(e.target.value.replace(/\D/g, ""))}
-                                className="mt-1 h-10 w-full rounded-xl border px-3 text-sm focus:border-brand focus:outline-none"
+                                className="mt-1 h-10 w-full rounded-xl border border-line bg-slate-950/40 text-slate-200 px-3 text-sm focus:border-brand focus:outline-none"
                                 placeholder="1234567890"
                               />
                             </div>
 
-                            <div className="mt-6 flex justify-end gap-3 pt-3 border-t">
+                            <div className="mt-6 flex justify-end gap-3 pt-3 border-t border-line">
                               <Dialog.Close asChild>
                                 <Button variant="secondary" type="button">
                                   Cancelar
@@ -1275,11 +1275,11 @@ export default function PaymentsPage() {
 
                   {payouts.length === 0 ? (
                     <Card className="flex flex-col items-center justify-center p-14 text-center">
-                      <div className="rounded-full bg-slate-100 p-4 mb-4">
-                        <Wallet className="h-8 w-8 text-slate-400" />
+                      <div className="rounded-full bg-slate-950/60 border border-line p-4 mb-4">
+                        <Wallet className="h-8 w-8 text-slate-500" />
                       </div>
-                      <h4 className="text-sm font-semibold text-slate-900">No tienes cuentas de retiro asociadas</h4>
-                      <p className="text-xs text-slate-500 mt-2 max-w-sm">
+                      <h4 className="text-sm font-semibold text-slate-200">No tienes cuentas de retiro asociadas</h4>
+                      <p className="text-xs text-slate-400 mt-2 max-w-sm">
                         Asocia una cuenta bancaria o utiliza Stripe Connect para poder retirar tus ganancias acumuladas.
                       </p>
                       <Button className="mt-4" onClick={() => setIsAddBankOpen(true)}>
@@ -1291,24 +1291,24 @@ export default function PaymentsPage() {
                       {payouts.map((payout) => (
                         <div
                           key={payout.id}
-                          className={`relative flex flex-col justify-between rounded-2xl border p-5 bg-white transition hover:shadow-md ${
-                            payout.isDefault ? "border-brand ring-1 ring-brand" : "border-slate-200"
+                          className={`relative flex flex-col justify-between rounded-2xl border p-5 bg-panel/40 transition hover:shadow-md ${
+                            payout.isDefault ? "border-brand ring-1 ring-brand" : "border-line"
                           }`}
                         >
                           <div className="flex items-start justify-between">
                             <div>
-                              <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest">
+                              <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-widest">
                                 {payout.accountType}
                               </span>
-                              <h4 className="font-bold text-base text-slate-900 mt-1">{payout.bankName}</h4>
-                              <p className="text-xs text-slate-500 mt-0.5">Nº de cuenta: •••• {payout.last4}</p>
+                              <h4 className="font-bold text-base text-slate-200 mt-1">{payout.bankName}</h4>
+                              <p className="text-xs text-slate-400 mt-0.5">Nº de cuenta: •••• {payout.last4}</p>
                             </div>
                             <div className="flex flex-col items-end gap-2">
                               <span
                                 className={`rounded px-1.5 py-0.5 text-[9px] font-semibold ${
                                   payout.status === "Verificado"
-                                    ? "bg-emerald-50 text-emerald-700"
-                                    : "bg-amber-50 text-amber-700"
+                                    ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
+                                    : "bg-amber-500/10 text-amber-400 border border-amber-500/20"
                                 }`}
                               >
                                 {payout.status}
@@ -1321,7 +1321,7 @@ export default function PaymentsPage() {
                             </div>
                           </div>
 
-                          <div className="mt-6 flex items-center justify-end border-t pt-3 gap-2">
+                          <div className="mt-6 flex items-center justify-end border-t border-line pt-3 gap-2">
                             {!payout.isDefault && (
                               <Button
                                 size="sm"
@@ -1361,20 +1361,20 @@ export default function PaymentsPage() {
               className="space-y-4"
             >
               <Card className="overflow-hidden">
-                <CardHeader className="p-5 border-b bg-slate-50/50">
-                  <h3 className="text-base font-bold text-slate-900">Historial de Facturas</h3>
-                  <p className="text-xs text-slate-500 mt-0.5">
+                <CardHeader className="p-5 border-b border-line bg-slate-950/20">
+                  <h3 className="text-base font-bold text-slate-200">Historial de Facturas</h3>
+                  <p className="text-xs text-slate-400 mt-0.5">
                     Descarga comprobantes en formato PDF para contabilidad. Generado automáticamente por transacción aprobada.
                   </p>
                 </CardHeader>
 
                 {transactions.filter((t) => t.status === "Paid").length === 0 ? (
                   <div className="flex flex-col items-center justify-center p-14 text-center">
-                    <div className="rounded-full bg-slate-100 p-4 mb-4">
-                      <FileText className="h-8 w-8 text-slate-400" />
+                    <div className="rounded-full bg-slate-950/60 border border-line p-4 mb-4">
+                      <FileText className="h-8 w-8 text-slate-500" />
                     </div>
-                    <h4 className="text-sm font-semibold text-slate-900">Sin facturas emitidas</h4>
-                    <p className="text-xs text-slate-500 mt-2 max-w-sm">
+                    <h4 className="text-sm font-semibold text-slate-200">Sin facturas emitidas</h4>
+                    <p className="text-xs text-slate-400 mt-2 max-w-sm">
                       Las facturas se generan únicamente cuando los hitos han sido aprobados y liberados (Estado: Paid).
                     </p>
                   </div>
@@ -1382,7 +1382,7 @@ export default function PaymentsPage() {
                   <div className="overflow-x-auto">
                     <table className="w-full text-left text-sm border-collapse">
                       <thead>
-                        <tr className="border-b bg-slate-50/30 text-xs font-semibold uppercase tracking-wider text-slate-500">
+                        <tr className="border-b border-line bg-slate-950/40 text-xs font-semibold uppercase tracking-wider text-slate-400">
                           <th className="px-5 py-3">Número de Factura</th>
                           <th className="px-5 py-3">Proyecto / Hito</th>
                           <th className="px-5 py-3">Fecha de Emisión</th>
@@ -1394,13 +1394,13 @@ export default function PaymentsPage() {
                         {transactions
                           .filter((t) => t.status === "Paid")
                           .map((tx) => (
-                            <tr key={tx.id} className="border-b last:border-0 hover:bg-slate-50/30 transition">
-                              <td className="px-5 py-4 font-mono text-xs font-bold text-slate-700">
+                            <tr key={tx.id} className="border-b border-line last:border-0 hover:bg-slate-800/20 transition">
+                              <td className="px-5 py-4 font-mono text-xs font-bold text-slate-400">
                                 INV-2026-{tx.id}
                               </td>
-                              <td className="px-5 py-4 font-medium text-slate-900">{tx.description}</td>
-                              <td className="px-5 py-4 text-xs text-slate-500">{formatDate(tx.createdAt)}</td>
-                              <td className="px-5 py-4 font-semibold text-slate-900">{formatCurrency(tx.amount)}</td>
+                              <td className="px-5 py-4 font-medium text-slate-200">{tx.description}</td>
+                              <td className="px-5 py-4 text-xs text-slate-400">{formatDate(tx.createdAt)}</td>
+                              <td className="px-5 py-4 font-semibold text-slate-200">{formatCurrency(tx.amount)}</td>
                               <td className="px-5 py-4 text-right">
                                 <Button
                                   size="sm"
