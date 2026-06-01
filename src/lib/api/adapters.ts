@@ -42,7 +42,18 @@ export function adaptSession(token: string, dto: BackendUserDto): AuthSession {
 }
 
 export function adaptUserProfile(dto: BackendUserProfileDto): UserProfile {
-  return { ...adaptUser(dto), ...dto, id: dto.userId, role: normalizeUserRole(dto.userType), createdAt: new Date(dto.createdAt) };
+  return {
+    ...adaptUser(dto),
+    ...dto,
+    id: dto.userId,
+    role: normalizeUserRole(dto.userType),
+    createdAt: new Date(dto.createdAt),
+    companyName: dto.companyName ?? null,
+    industry: dto.industry ?? null,
+    companySize: dto.companySize ?? null,
+    website: dto.website ?? null,
+    linkedIn: dto.linkedIn ?? null,
+  };
 }
 
 export function adaptFreelancerProfile(dto: BackendFreelancerProfileDto): FreelancerProfile {
@@ -77,6 +88,19 @@ export function adaptFreelancerProfile(dto: BackendFreelancerProfileDto): Freela
       projectUrl: item.projectUrl,
       thumbnailUrl: item.thumbnailUrl,
       completionDate: item.completionDate ? new Date(item.completionDate) : null,
+      technologies: item.technologies ?? [],
+    })),
+    weeklyAvailability: dto.weeklyAvailability ?? null,
+    workMode: dto.workMode ?? null,
+    resumeUrl: dto.resumeUrl ?? null,
+    resumeName: dto.resumeName ?? null,
+    certifications: (dto.certifications ?? []).map((c) => ({
+      id: c.certificationId,
+      name: c.name,
+      institution: c.institution,
+      issueDate: new Date(c.issueDate),
+      pdfUrl: c.pdfUrl,
+      pdfName: c.pdfName,
     })),
   };
 }

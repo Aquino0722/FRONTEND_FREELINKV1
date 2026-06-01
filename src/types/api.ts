@@ -53,6 +53,20 @@ export interface BackendUserProfileDto extends BackendUserDto {
   profilePictureUrl: string | null;
   balance: number;
   pendingBalance: number;
+  companyName?: string | null;
+  industry?: string | null;
+  companySize?: string | null;
+  website?: string | null;
+  linkedIn?: string | null;
+}
+
+export interface CertificationDto {
+  certificationId: number;
+  name: string;
+  institution: string;
+  issueDate: string;
+  pdfUrl: string | null;
+  pdfName: string | null;
 }
 
 export interface BackendFreelancerProfileDto {
@@ -67,6 +81,11 @@ export interface BackendFreelancerProfileDto {
   skills: FreelancerSkillDto[];
   workExperiences: WorkExperienceDto[];
   portfolioItems: PortfolioItemDto[];
+  weeklyAvailability?: number | null;
+  workMode?: string | null;
+  resumeUrl?: string | null;
+  resumeName?: string | null;
+  certifications?: CertificationDto[];
 }
 
 export interface FreelancerSkillDto {
@@ -109,7 +128,9 @@ export interface PortfolioItemDto {
   thumbnailUrl: string | null;
   completionDate: string | null;
   files: PortfolioFileDto[];
+  technologies?: string[];
 }
+
 
 export interface PortfolioFileDto {
   fileId: number;

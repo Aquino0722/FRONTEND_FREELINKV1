@@ -8,6 +8,7 @@ export const endpoints = {
     profile: (id: number) => `/Freelancers/${id}/profile`,
     skills: "/Freelancers/skills",
     addSkill: (id: number) => `/Freelancers/${id}/skills`,
+    deleteSkill: (id: number, skillId: number) => `/Freelancers/${id}/skills/${skillId}`,
     experience: (id: number) => `/Freelancers/${id}/work-experience`,
     experienceById: (id: number, experienceId: number) => `/Freelancers/${id}/work-experience/${experienceId}`,
     applications: (id: number) => `/freelancers/${id}/applications`,

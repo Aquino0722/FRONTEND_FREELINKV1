@@ -93,4 +93,16 @@ export const freelancersHandlers = [
     profile.workExperiences = profile.workExperiences.filter((item) => item.experienceId !== Number(params.experienceId));
     return HttpResponse.json({ success: true, message: "Experiencia eliminada." });
   }),
+  http.delete("*/api/Freelancers/:id/skills/:skillId", async ({ request, params }) => {
+    await mockDelay();
+    const user = authenticatedUser(request);
+    if (!user) return unauthorized();
+    const id = Number(params.id);
+    if (user.userId !== id && !hasRole(user, "Administrador")) return forbidden();
+    const profile = db.freelancers.find((item) => item.userId === id);
+    if (!profile) return HttpResponse.json({ message: "Perfil freelancer no encontrado." }, { status: 404 });
+    const skillId = Number(params.skillId);
+    profile.skills = profile.skills.filter((item) => item.skillId !== skillId);
+    return HttpResponse.json({ success: true, message: "Habilidad eliminada." });
+  }),
 ];

@@ -20,6 +20,8 @@ export const usersHandlers = [
       lastName: profile.lastName, phoneNumber: profile.phoneNumber, country: profile.country,
       city: profile.city, bio: profile.bio, profilePictureUrl: profile.profilePictureUrl,
       balance: profile.balance, pendingBalance: profile.pendingBalance,
+      companyName: profile.companyName, industry: profile.industry, companySize: profile.companySize,
+      website: profile.website, linkedIn: profile.linkedIn,
     } });
   }),
   http.get("*/api/Users/:id", async ({ request, params }) => {

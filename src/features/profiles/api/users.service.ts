@@ -11,6 +11,12 @@ export interface UpdateUserInput {
   country?: string | null;
   city?: string | null;
   bio?: string | null;
+  profilePictureUrl?: string | null;
+  companyName?: string | null;
+  industry?: string | null;
+  companySize?: string | null;
+  website?: string | null;
+  linkedIn?: string | null;
 }
 
 export const usersService = {

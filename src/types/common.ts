@@ -35,6 +35,11 @@ export interface UserProfile extends User {
   profilePictureUrl: string | null;
   balance: number;
   pendingBalance: number;
+  companyName?: string | null;
+  industry?: string | null;
+  companySize?: string | null;
+  website?: string | null;
+  linkedIn?: string | null;
 }
 
 export interface FreelancerSkill {
@@ -58,6 +63,15 @@ export type AvailabilityStatus = "Disponible" | "Ocupado" | "No disponible";
 
 export type ProficiencyLevel = "Basico" | "Intermedio" | "Avanzado" | "Experto";
 
+export interface Certification {
+  id: number;
+  name: string;
+  institution: string;
+  issueDate: Date;
+  pdfUrl: string | null;
+  pdfName: string | null;
+}
+
 export interface PortfolioItem {
   id: number;
   title: string;
@@ -65,6 +79,7 @@ export interface PortfolioItem {
   projectUrl: string | null;
   thumbnailUrl: string | null;
   completionDate: Date | null;
+  technologies?: string[];
 }
 
 export interface FreelancerProfile {
@@ -79,7 +94,13 @@ export interface FreelancerProfile {
   skills: FreelancerSkill[];
   workExperiences: WorkExperience[];
   portfolioItems: PortfolioItem[];
+  weeklyAvailability?: number | null;
+  workMode?: string | null;
+  resumeUrl?: string | null;
+  resumeName?: string | null;
+  certifications?: Certification[];
 }
+
 
 export interface Project {
   id: number;

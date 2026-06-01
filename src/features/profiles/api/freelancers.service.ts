@@ -2,13 +2,19 @@ import { apiClient } from "@/lib/api/axios-client";
 import { adaptFreelancerProfile } from "@/lib/api/adapters";
 import { endpoints } from "@/lib/api/endpoints";
 import type { BackendFreelancerProfileDto, SkillDto, WorkExperienceRequest } from "@/types/api";
-import type { FreelancerProfile, FreelancerSkill, ProficiencyLevel } from "@/types/common";
+import type { FreelancerProfile, FreelancerSkill, ProficiencyLevel, Certification, PortfolioItem } from "@/types/common";
 
 export interface UpdateFreelancerInput {
   title?: string | null;
   hourlyRate?: number | null;
   yearsOfExperience?: number | null;
   availabilityStatus?: string | null;
+  weeklyAvailability?: number | null;
+  workMode?: string | null;
+  resumeUrl?: string | null;
+  resumeName?: string | null;
+  certifications?: Certification[];
+  portfolioItems?: PortfolioItem[];
 }
 
 export type WorkExperienceInput = WorkExperienceRequest;
@@ -27,6 +33,9 @@ export const freelancersService = {
   },
   async addSkill(userId: number, skillId: number, proficiencyLevel: ProficiencyLevel): Promise<void> {
     await apiClient.post(endpoints.freelancers.addSkill(userId), { skillId, proficiencyLevel });
+  },
+  async deleteSkill(userId: number, skillId: number): Promise<void> {
+    await apiClient.delete(endpoints.freelancers.deleteSkill(userId, skillId));
   },
   async addWorkExperience(userId: number, input: WorkExperienceInput): Promise<void> {
     await apiClient.post(endpoints.freelancers.experience(userId), input);

@@ -75,3 +75,12 @@ export function useDeleteWorkExperience(userId: number) {
     onSuccess: () => client.invalidateQueries({ queryKey: queryKeys.freelancers.profile(userId) }),
   });
 }
+
+export function useDeleteFreelancerSkill(userId: number) {
+  const client = useQueryClient();
+  return useMutation({
+    mutationFn: (skillId: number) => freelancersService.deleteSkill(userId, skillId),
+    onSuccess: () => client.invalidateQueries({ queryKey: queryKeys.freelancers.profile(userId) }),
+  });
+}
+
