@@ -54,6 +54,10 @@ export interface WorkExperience {
   description: string | null;
 }
 
+export type AvailabilityStatus = "Disponible" | "Ocupado" | "No disponible";
+
+export type ProficiencyLevel = "Basico" | "Intermedio" | "Avanzado" | "Experto";
+
 export interface PortfolioItem {
   id: number;
   title: string;
@@ -102,6 +106,9 @@ export interface Application {
   estimatedDuration: number | null;
   status: ApplicationStatus;
   appliedAt: Date;
+  projectTitle?: string;
+  freelancerName?: string;
+  respondedAt?: Date | null;
 }
 
 export interface ProjectActivity {
@@ -134,6 +141,27 @@ export interface ProjectDeliverable {
   reviewComments: string | null;
   dueDate: Date | null;
   files: DeliverableFile[];
+}
+
+export interface ProjectMessageAttachment {
+  id: number;
+  messageId: number;
+  fileName: string;
+  fileUrl: string;
+  fileType: string | null;
+  fileSize: number | null;
+  uploadedAt: Date;
+}
+
+export interface ProjectMessage {
+  id: number;
+  projectId: number;
+  senderId: number;
+  senderName: string | null;
+  content: string | null;
+  createdAt: Date;
+  readAt: Date | null;
+  attachments: ProjectMessageAttachment[];
 }
 
 export interface DeliverableSummary {

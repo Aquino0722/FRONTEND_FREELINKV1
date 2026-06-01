@@ -92,6 +92,15 @@ export interface WorkExperienceDto {
   description: string | null;
 }
 
+export interface WorkExperienceRequest {
+  jobTitle: string;
+  company?: string | null;
+  startDate: string;
+  endDate?: string | null;
+  isCurrent: boolean;
+  description?: string | null;
+}
+
 export interface PortfolioItemDto {
   portfolioId: number;
   title: string;
@@ -135,6 +144,9 @@ export interface ApplicationDto {
   estimatedDuration: number | null;
   applicationStatus: ApplicationStatus;
   appliedAt: string;
+  projectTitle?: string;
+  freelancerName?: string;
+  respondedAt?: string | null;
 }
 
 export interface ProjectActivityDto {
@@ -162,6 +174,27 @@ export interface ProjectDeliverableDto {
 export interface DeliverableFileDto {
   fileId: number;
   deliverableId: number;
+  fileName: string;
+  fileUrl: string;
+  fileType: string | null;
+  fileSize: number | null;
+  uploadedAt: string;
+}
+
+export interface ProjectMessageDto {
+  messageId: number;
+  projectId: number;
+  senderId: number;
+  senderName: string | null;
+  content: string | null;
+  createdAt: string;
+  readAt: string | null;
+  attachments?: ProjectMessageAttachmentDto[];
+}
+
+export interface ProjectMessageAttachmentDto {
+  attachmentId: number;
+  messageId: number;
   fileName: string;
   fileUrl: string;
   fileType: string | null;

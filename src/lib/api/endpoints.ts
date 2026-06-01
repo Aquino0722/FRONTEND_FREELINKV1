@@ -9,6 +9,7 @@ export const endpoints = {
     skills: "/Freelancers/skills",
     addSkill: (id: number) => `/Freelancers/${id}/skills`,
     experience: (id: number) => `/Freelancers/${id}/work-experience`,
+    experienceById: (id: number, experienceId: number) => `/Freelancers/${id}/work-experience/${experienceId}`,
     applications: (id: number) => `/freelancers/${id}/applications`,
   },
   projects: {
@@ -18,6 +19,9 @@ export const endpoints = {
     activity: (id: number) => `/Projects/${id}/activity`,
     deliverables: (id: number) => `/Projects/${id}/deliverables`,
     summary: (id: number) => `/Projects/${id}/deliverables/summary`,
+    deliverableReview: (deliverableId: number) => `/Projects/deliverables/${deliverableId}/review`,
+    messages: (id: number) => `/Projects/${id}/messages`,
+    messageRead: (messageId: number) => `/Projects/messages/${messageId}/read`,
     start: (id: number) => `/Projects/${id}/start`,
     complete: (id: number) => `/Projects/${id}/complete`,
   },
@@ -26,4 +30,5 @@ export const endpoints = {
     reject: (id: number) => `/applications/${id}/reject`,
   },
   payments: { transactions: "/Payments/transactions" },
+  admin: { users: "/Admin/users" },
 } as const;
