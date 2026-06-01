@@ -4,6 +4,18 @@ import { normalizeUserRole } from "@/lib/auth/role-normalizer";
 import { db } from "@/mocks/data/database";
 import { authenticatedUser, errorScenario, forbidden, hasRole, mockDelay, unauthorized } from "@/mocks/utils";
 
+interface UpdateUserPayload {
+  firstName?: string;
+  lastName?: string;
+  phoneNumber?: string | null;
+  country?: string | null;
+  city?: string | null;
+  bio?: string | null;
+  profilePicture?: string | null;
+  profilePictureUrl?: string | null;
+  isActive?: boolean;
+}
+
 export const usersHandlers = [
   http.get("*/api/Users/:id/profile", async ({ request, params }) => {
     await mockDelay();
@@ -34,15 +46,21 @@ export const usersHandlers = [
     if (!user) return HttpResponse.json({ message: "Usuario no encontrado." }, { status: 404 });
     return HttpResponse.json({ success: true, message: "Usuario encontrado.", user });
   }),
+
   http.put("*/api/Users/:id", async ({ request, params }) => {
     await mockDelay();
     const session = authenticatedUser(request);
     if (!session) return unauthorized();
     const id = Number(params.id);
     if (session.userId !== id && !hasRole(session, "Administrador")) return forbidden();
-    const input = (await request.json()) as Partial<typeof session>;
+    const input = (await request.json()) as UpdateUserPayload;
     const user = db.users.find((item) => item.userId === id);
     if (!user) return HttpResponse.json({ message: "Usuario no encontrado." }, { status: 404 });
+    
+    if (input.profilePicture !== undefined && input.profilePicture !== null) {
+      user.profilePictureUrl = input.profilePicture;
+    }
+    
     Object.assign(user, input);
     return HttpResponse.json({ success: true, message: "Perfil actualizado.", userId: id });
   }),

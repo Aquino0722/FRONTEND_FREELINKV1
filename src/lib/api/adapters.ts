@@ -41,22 +41,85 @@ export function adaptSession(token: string, dto: BackendUserDto): AuthSession {
   return { token, user: adaptUser(dto), expiresAt: payload.exp * 1000 };
 }
 
+interface LocalProfileExtras {
+  companyName?: string | null;
+  industry?: string | null;
+  companySize?: string | null;
+  website?: string | null;
+  linkedIn?: string | null;
+  bio?: string | null;
+}
+
+interface LocalFreelancerExtras {
+  weeklyAvailability?: number | null;
+  workMode?: string | null;
+  resumeUrl?: string | null;
+  resumeName?: string | null;
+  certifications?: {
+    id: number;
+    name: string;
+    institution: string;
+    issueDate: string;
+    pdfUrl: string | null;
+    pdfName: string | null;
+  }[];
+  portfolioItems?: {
+    id: number;
+    title: string;
+    description: string | null;
+    projectUrl: string | null;
+    thumbnailUrl: string | null;
+    completionDate: string | null;
+    technologies: string[];
+  }[];
+}
+
 export function adaptUserProfile(dto: BackendUserProfileDto): UserProfile {
+  let localAvatar: string | null = null;
+  let localExtras: LocalProfileExtras | null = null;
+
+  if (typeof window !== "undefined") {
+    try {
+      localAvatar = localStorage.getItem(`profile_avatar_${dto.userId}`);
+      const extrasStr = localStorage.getItem(`profile_extras_${dto.userId}`);
+      if (extrasStr) {
+        localExtras = JSON.parse(extrasStr) as LocalProfileExtras;
+      }
+    } catch (e) {
+      console.error("Error reading profile local storage:", e);
+    }
+  }
+
   return {
     ...adaptUser(dto),
     ...dto,
     id: dto.userId,
     role: normalizeUserRole(dto.userType),
     createdAt: new Date(dto.createdAt),
-    companyName: dto.companyName ?? null,
-    industry: dto.industry ?? null,
-    companySize: dto.companySize ?? null,
-    website: dto.website ?? null,
-    linkedIn: dto.linkedIn ?? null,
+    profilePictureUrl: localAvatar || dto.profilePictureUrl || null,
+    companyName: localExtras?.companyName !== undefined ? localExtras.companyName : (dto.companyName ?? null),
+    industry: localExtras?.industry !== undefined ? localExtras.industry : (dto.industry ?? null),
+    companySize: localExtras?.companySize !== undefined ? localExtras.companySize : (dto.companySize ?? null),
+    website: localExtras?.website !== undefined ? localExtras.website : (dto.website ?? null),
+    linkedIn: localExtras?.linkedIn !== undefined ? localExtras.linkedIn : (dto.linkedIn ?? null),
+    bio: localExtras?.bio !== undefined ? localExtras.bio : (dto.bio ?? null),
   };
 }
 
 export function adaptFreelancerProfile(dto: BackendFreelancerProfileDto): FreelancerProfile {
+  let localExtras: LocalFreelancerExtras | null = null;
+
+  if (typeof window !== "undefined") {
+    try {
+      const extrasStr = localStorage.getItem(`freelancer_extras_${dto.userId}`);
+      if (extrasStr) {
+        localExtras = JSON.parse(extrasStr) as LocalFreelancerExtras;
+      }
+    } catch (e) {
+      console.error("Error reading freelancer local storage:", e);
+    }
+  }
+
   return {
     id: dto.freelancerProfileId,
     userId: dto.userId,
@@ -81,27 +144,37 @@ export function adaptFreelancerProfile(dto: BackendFreelancerProfileDto): Freela
       isCurrent: Boolean(item.isCurrent),
       description: item.description,
     })),
-    portfolioItems: dto.portfolioItems.map((item) => ({
-      id: item.portfolioId,
-      title: item.title,
-      description: item.description,
-      projectUrl: item.projectUrl,
-      thumbnailUrl: item.thumbnailUrl,
-      completionDate: item.completionDate ? new Date(item.completionDate) : null,
-      technologies: item.technologies ?? [],
-    })),
-    weeklyAvailability: dto.weeklyAvailability ?? null,
-    workMode: dto.workMode ?? null,
-    resumeUrl: dto.resumeUrl ?? null,
-    resumeName: dto.resumeName ?? null,
-    certifications: (dto.certifications ?? []).map((c) => ({
-      id: c.certificationId,
-      name: c.name,
-      institution: c.institution,
-      issueDate: new Date(c.issueDate),
-      pdfUrl: c.pdfUrl,
-      pdfName: c.pdfName,
-    })),
+    portfolioItems: localExtras?.portfolioItems 
+      ? localExtras.portfolioItems.map((item) => ({
+          ...item,
+          completionDate: item.completionDate ? new Date(item.completionDate) : null,
+        }))
+      : dto.portfolioItems.map((item) => ({
+          id: item.portfolioId,
+          title: item.title,
+          description: item.description,
+          projectUrl: item.projectUrl,
+          thumbnailUrl: item.thumbnailUrl,
+          completionDate: item.completionDate ? new Date(item.completionDate) : null,
+          technologies: item.technologies ?? [],
+        })),
+    weeklyAvailability: localExtras?.weeklyAvailability !== undefined ? localExtras.weeklyAvailability : (dto.weeklyAvailability ?? null),
+    workMode: localExtras?.workMode !== undefined ? localExtras.workMode : (dto.workMode || null),
+    resumeUrl: localExtras?.resumeUrl !== undefined ? localExtras.resumeUrl : (dto.resumeUrl || null),
+    resumeName: localExtras?.resumeName !== undefined ? localExtras.resumeName : (dto.resumeName || null),
+    certifications: localExtras?.certifications !== undefined 
+      ? localExtras.certifications.map((c) => ({
+          ...c,
+          issueDate: new Date(c.issueDate),
+        }))
+      : (dto.certifications ?? []).map((c) => ({
+          id: c.certificationId,
+          name: c.name,
+          institution: c.institution,
+          issueDate: new Date(c.issueDate),
+          pdfUrl: c.pdfUrl,
+          pdfName: c.pdfName,
+        })),
   };
 }
 

@@ -94,6 +94,15 @@ function toDateInput(date: Date | null) {
   }
 }
 
+const fileToBase64 = (file: File): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = (error) => reject(error);
+  });
+};
+
 export default function ProfilePage() {
   const user = useAuthStore((state) => state.session?.user);
   const profile = useUserProfile(user?.id ?? 0);
@@ -267,11 +276,15 @@ export default function ProfilePage() {
   });
 
   // Avatar Upload Handler
-  const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAvatarChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      const mockUrl = URL.createObjectURL(file);
-      handleUpdateUserProfile({ profilePictureUrl: mockUrl }, "Imagen de perfil actualizada.");
+      try {
+        const base64 = await fileToBase64(file);
+        handleUpdateUserProfile({ profilePictureUrl: base64 }, "Imagen de perfil actualizada.");
+      } catch {
+        toast.error("Error al procesar la imagen.");
+      }
     }
   };
 
@@ -354,17 +367,28 @@ export default function ProfilePage() {
   };
 
   // Certifications handlers
-  const handleAddCert = () => {
+  const handleAddCert = async () => {
     if (!certDraft.name.trim() || !certDraft.institution.trim() || !certDraft.issueDate) {
       toast.error("Por favor completa los campos requeridos.");
       return;
     }
+    
+    let pdfUrl: string | null = null;
+    if (certDraft.pdfFile) {
+      try {
+        pdfUrl = await fileToBase64(certDraft.pdfFile);
+      } catch {
+        toast.error("Error al procesar el certificado PDF.");
+        return;
+      }
+    }
+
     const newCert: Certification = {
       id: Date.now(),
       name: certDraft.name.trim(),
       institution: certDraft.institution.trim(),
       issueDate: new Date(certDraft.issueDate),
-      pdfUrl: certDraft.pdfFile ? URL.createObjectURL(certDraft.pdfFile) : null,
+      pdfUrl,
       pdfName: certDraft.pdfFile ? certDraft.pdfFile.name : null,
     };
 
@@ -381,15 +405,19 @@ export default function ProfilePage() {
   };
 
   // CV / Resume upload
-  const handleCvChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCvChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       if (file.type !== "application/pdf") {
         toast.error("Por favor sube únicamente archivos PDF.");
         return;
       }
-      const mockUrl = URL.createObjectURL(file);
-      handleUpdateFreelancerProfile({ resumeUrl: mockUrl, resumeName: file.name }, "Currículum (CV) subido con éxito.");
+      try {
+        const base64 = await fileToBase64(file);
+        handleUpdateFreelancerProfile({ resumeUrl: base64, resumeName: file.name }, "Currículum (CV) subido con éxito.");
+      } catch {
+        toast.error("Error al procesar el archivo PDF.");
+      }
     }
   };
 
@@ -416,21 +444,29 @@ export default function ProfilePage() {
     setIsPortfolioOpen(true);
   };
 
-  const handleSavePortfolio = () => {
+  const handleSavePortfolio = async () => {
     if (!portfolioDraft.title.trim()) {
       toast.error("El nombre del proyecto es requerido.");
       return;
     }
     const currentList = professional.data?.portfolioItems ?? [];
 
+    let thumbnailUrl: string | null = editingPortfolio ? editingPortfolio.thumbnailUrl : null;
+    if (portfolioDraft.imageFile) {
+      try {
+        thumbnailUrl = await fileToBase64(portfolioDraft.imageFile);
+      } catch {
+        toast.error("Error al procesar la imagen del portafolio.");
+        return;
+      }
+    }
+
     const newItem: PortfolioItem = {
       id: editingPortfolio ? editingPortfolio.id : Date.now(),
       title: portfolioDraft.title.trim(),
       description: portfolioDraft.description.trim() || null,
       projectUrl: portfolioDraft.projectUrl.trim() || null,
-      thumbnailUrl: portfolioDraft.imageFile
-        ? URL.createObjectURL(portfolioDraft.imageFile)
-        : (editingPortfolio ? editingPortfolio.thumbnailUrl : null),
+      thumbnailUrl,
       completionDate: editingPortfolio ? editingPortfolio.completionDate : new Date(),
       technologies: portfolioDraft.technologies.split(",").map((t) => t.trim()).filter(Boolean),
     };

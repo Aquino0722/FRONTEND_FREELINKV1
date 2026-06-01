@@ -25,7 +25,33 @@ export const freelancersService = {
     return adaptFreelancerProfile(data.profile);
   },
   async update(userId: number, input: UpdateFreelancerInput): Promise<void> {
-    await apiClient.put(endpoints.freelancers.profile(userId), input);
+    if (typeof window !== "undefined") {
+      try {
+        const existingExtrasStr = localStorage.getItem(`freelancer_extras_${userId}`);
+        const existingExtras = existingExtrasStr ? JSON.parse(existingExtrasStr) : {};
+        const updatedExtras = {
+          ...existingExtras,
+          ...(input.weeklyAvailability !== undefined && { weeklyAvailability: input.weeklyAvailability }),
+          ...(input.workMode !== undefined && { workMode: input.workMode }),
+          ...(input.resumeUrl !== undefined && { resumeUrl: input.resumeUrl }),
+          ...(input.resumeName !== undefined && { resumeName: input.resumeName }),
+          ...(input.certifications !== undefined && { certifications: input.certifications }),
+          ...(input.portfolioItems !== undefined && { portfolioItems: input.portfolioItems }),
+        };
+        localStorage.setItem(`freelancer_extras_${userId}`, JSON.stringify(updatedExtras));
+      } catch (e) {
+        console.error("Failed to save freelancer profile updates to local storage", e);
+      }
+    }
+
+    const payload = {
+      title: input.title,
+      hourlyRate: input.hourlyRate,
+      yearsOfExperience: input.yearsOfExperience,
+      availabilityStatus: input.availabilityStatus,
+    };
+
+    await apiClient.put(endpoints.freelancers.profile(userId), payload);
   },
   async getSkills(category?: string): Promise<FreelancerSkill[]> {
     const { data } = await apiClient.get<{ skills: SkillDto[] }>(endpoints.freelancers.skills, { params: { category } });
