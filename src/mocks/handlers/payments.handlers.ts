@@ -14,6 +14,10 @@ export const paymentsHandlers = [
     let items = hasRole(user, "Administrador") ? db.transactions : db.transactions.filter((item) => item.fromUserId === user.userId || item.toUserId === user.userId);
     const status = url.searchParams.get("status");
     if (status) items = items.filter((item) => item.transactionStatus === status);
+    
+    // Sort by date descending
+    items = [...items].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+
     return HttpResponse.json({ total: items.length, page, pageSize, items: items.slice((page - 1) * pageSize, page * pageSize) });
   }),
 ];

@@ -14,6 +14,10 @@ const colorByStatus: Record<string, string> = {
   Cancelado: "border-slate-100 bg-slate-50 text-slate-700",
   Enviado: "border-blue-100 bg-blue-50 text-blue-700",
   Postulado: "border-indigo-100 bg-indigo-50 text-indigo-700",
+  Paid: "border-emerald-100 bg-emerald-50 text-emerald-700",
+  Pending: "border-amber-100 bg-amber-50 text-amber-700",
+  "In Review": "border-blue-100 bg-blue-50 text-blue-700",
+  Escrow: "border-violet-100 bg-violet-50 text-violet-700",
 };
 
 export function StatusBadge({ status }: { status: string }) {
